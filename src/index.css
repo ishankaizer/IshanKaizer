@@ -1,0 +1,169 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   DESIGN TOKENS — timeless editorial system.
+   Warm paper ground, near-black ink, one disciplined raspberry
+   accent. Both themes are first-class. Semantic (shadcn) tokens
+   map onto the brand palette so every ui/ primitive inherits it.
+   ============================================================ */
+:root {
+  /* brand palette — light */
+  --paper: #fbf7f2;
+  --paper-2: #f4eee6;
+  --ink: #17141b;
+  --ink-soft: #4a4453;
+  --ink-mute: #837b8c;
+  --hairline: #e6ddd1;
+  --brand: #d8235a;          /* raspberry, disciplined */
+  --brand-strong: #b0104a;   /* meets AA for links/hover on paper */
+  --brand-tint: #fff0f4;
+
+  /* shadcn semantic tokens */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: #fbf7f2;
+  --secondary: var(--paper-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-2);
+  --muted-foreground: var(--ink-mute);
+  --accent: var(--paper-2);
+  --accent-foreground: var(--ink);
+  --destructive: #b0104a;
+  --destructive-foreground: #ffffff;
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--brand);
+
+  --radius: 0.625rem;
+}
+
+.dark {
+  --paper: #131017;
+  --paper-2: #1c1822;
+  --ink: #f3eee7;
+  --ink-soft: #c7c0ce;
+  --ink-mute: #928aa0;
+  --hairline: #2a2532;
+  --brand: #ff5c8a;
+  --brand-strong: #ff89ac;
+  --brand-tint: #251320;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #1a1620;
+  --card-foreground: var(--ink);
+  --popover: #1a1620;
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: #131017;
+  --secondary: var(--paper-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-2);
+  --muted-foreground: var(--ink-mute);
+  --accent: var(--paper-2);
+  --accent-foreground: var(--ink);
+  --destructive: #ff5c8a;
+  --destructive-foreground: #131017;
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--brand);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* brand aliases → text-brand, bg-paper, border-hairline, etc. */
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-mute: var(--ink-mute);
+  --color-hairline: var(--hairline);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-tint: var(--brand-tint);
+
+  --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Archivo", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    min-height: 100svh;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background: var(--color-brand);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Editorial helpers used across long-form case-study prose. */
+@layer components {
+  .prose-measure {
+    max-width: 68ch;
+  }
+}
