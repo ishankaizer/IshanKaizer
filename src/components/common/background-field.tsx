@@ -1,18 +1,56 @@
+import { useEffect, useRef } from 'react'
+
 /**
  * Site-wide atmosphere: irregular, organic colour fields (blurred SVG
- * blobs, not ellipses), a faint tonal drift, and fine film grain, so
- * warm paper reads as a real material rather than a flat fill. Kept soft
- * and behind all content so it never competes with the work.
+ * blobs, not ellipses), a faint tonal drift, and fine film grain, so warm
+ * paper reads as a real material rather than a flat fill. The colour fields
+ * drift with the pointer for a subtle parallax. Kept soft and behind all
+ * content so it never competes with the work.
  */
 const GRAIN =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"
 
 export function BackgroundField() {
+  const svgRef = useRef<SVGSVGElement>(null)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (!window.matchMedia('(pointer: fine)').matches) return
+    const svg = svgRef.current
+    if (!svg) return
+
+    let tx = 0
+    let ty = 0
+    let cx = 0
+    let cy = 0
+    let raf = 0
+    const render = () => {
+      cx += (tx - cx) * 0.06
+      cy += (ty - cy) * 0.06
+      svg.style.transform = `translate3d(${cx * -24}px, ${cy * -24}px, 0) scale(1.1)`
+      raf = requestAnimationFrame(render)
+    }
+    raf = requestAnimationFrame(render)
+
+    const onMove = (e: MouseEvent) => {
+      tx = e.clientX / window.innerWidth - 0.5
+      ty = e.clientY / window.innerHeight - 0.5
+    }
+    window.addEventListener('mousemove', onMove, { passive: true })
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('mousemove', onMove)
+    }
+  }, [])
+
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       {/* organic colour fields, irregular blurred blobs */}
       <svg
+        ref={svgRef}
         className="absolute inset-0 h-full w-full opacity-100 dark:opacity-[0.55]"
+        style={{ transformOrigin: 'center', willChange: 'transform', transform: 'scale(1.1)' }}
         viewBox="0 0 1600 1000"
         preserveAspectRatio="xMidYMid slice"
       >

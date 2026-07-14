@@ -2,6 +2,7 @@ import { Section } from '@/components/common/section'
 import { SectionHeader } from '@/components/common/section-header'
 import { Reveal } from '@/components/common/reveal'
 import { Portrait } from '@/components/common/portrait'
+import { CountUp } from '@/components/common/count-up'
 import { about } from '@/data/about'
 
 const facts = [
@@ -51,7 +52,7 @@ export function About() {
               {facts.map((f) => (
                 <div key={f.label} className="flex flex-col gap-1">
                   <dt className="font-display text-4xl font-black tracking-tight text-brand">
-                    {f.value}
+                    <CountUp value={f.value} />
                   </dt>
                   <dd className="text-sm leading-snug text-ink-mute">{f.label}</dd>
                 </div>

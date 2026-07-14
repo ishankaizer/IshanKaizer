@@ -59,7 +59,10 @@ export function WorkCard({ project, index, className, priority }: WorkCardProps)
     </>
   )
 
-  const classes = cn('group block focus-visible:outline-none', className)
+  const classes = cn(
+    'group block transition-transform duration-300 ease-out will-change-transform hover:scale-[1.015] focus-visible:outline-none',
+    className,
+  )
 
   return isExternal ? (
     <a

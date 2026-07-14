@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge'
 import { ProjectCover } from '@/components/common/project-cover'
 import { CaseMediaFrame } from '@/components/case/case-media'
 import { SlideGallery } from '@/components/case/slide-gallery'
+import { CountUp } from '@/components/common/count-up'
 import { ReadingProgress } from '@/components/common/reading-progress'
 import { NotFoundPage } from './not-found'
 
@@ -180,7 +181,7 @@ function CaseStudyContent({ project }: { project: Project & { study: NonNullable
                   {study.outcome.stats.map((s) => (
                     <div key={s.label} className="flex flex-col gap-1">
                       <dt className="font-display text-4xl font-black tracking-tight text-brand">
-                        {s.value}
+                        <CountUp value={s.value} />
                       </dt>
                       <dd className="text-sm text-ink-mute">{s.label}</dd>
                     </div>
