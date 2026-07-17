@@ -249,28 +249,47 @@ distrust), a third marquee (device already used twice), periodic-table tiles
 (still boxes). The `abbr` field died with the cards and was removed from the
 `Tool` type.
 
-**Extended with the exploded view (same day).** Prompted by a reference site
-that staged tools as 3D keycaps in a lit scene, the principle taken (tools as
-objects in one atmospheric moment, never the skin) was translated into the
-site's own language: on desktop the specimen now opens **exploded**. The nine
-names lie strewn across the sheet (deterministic per-part offsets and
-rotations in `SCATTER`, hand-composed, not random) over the faint `.draft-grid`,
-and scroll scrubs each part into its seat in sequence while the grid fades.
-Assembly, the language's recurring act, performed live.
+**Extended with the exploded view.** Prompted by a reference site that staged
+tools as 3D keycaps in a lit scene, the principle taken (tools as objects in one
+atmospheric moment, never the skin) was translated into the site's own language:
+on desktop the specimen opens **exploded**. The names lie strewn across the sheet
+over the faint `.draft-grid`, and scroll scrubs each part into its seat in
+sequence. Assembly, the language's recurring act, performed live.
+
+**Retuned after the first pass read as confetti.** Three faults were measured
+and fixed:
+
+- **Poses were random-facing.** The old `SCATTER` flung parts across a 500px X
+  span from unrelated directions. An exploded drawing separates along a coherent
+  axis, so poses are now *derived* (`openPose`): each row stands off to one side,
+  alternating down the page, and its own parts fan along the row's baseline. X
+  span cut to ~240px, lift kept positive and small.
+- **Timing overlapped.** Concurrency is span / stagger; the old 0.42 span on a
+  0.055 stagger put eight of nine parts in flight at once. Now `SPAN = 0.2` over
+  a derived stagger keeps ~3 moving at a time (a wave the eye follows) and lands
+  the last part at 0.75, so the finished specimen holds a quarter-scrub before
+  release. The scroll offset was also fixed to `['start start', 'end end']` so
+  progress maps exactly onto the pinned stretch.
+- **The grid fade misbehaved.** Driving grid opacity off `scrollYProgress` made
+  framer render it non-monotonically (it dipped, then visibly reappeared near
+  the end; framer never wrote the inline value, and computed opacity swung
+  0.7 to 0.11 to 0.35). It is now a **constant faint grid** (`opacity-40`, plain
+  div, no motion value): a drafting sheet's grid does not fade, and this removes
+  the bug and a whole scroll-linked value.
 
 Robustness reasoning, in the spirit of D8:
 
-- The **resting layout is the natural flow layout**; scatter is pure transform
-  driven by scroll position (`useScroll` + `useTransform`, no rAF loop of our
-  own, no entrance triggers). With JS dead the section is simply the assembled
-  specimen. If rAF ever stalls, parts rest scattered: posed, but fully visible
-  and legible. Opacity of content never animates, so nothing can be hidden.
+- The **resting layout is the natural flow layout**; the open pose is pure
+  transform driven by scroll position (`useScroll` + `useTransform`, no rAF loop
+  of our own, no entrance triggers). With JS dead the section is simply the
+  assembled specimen. If rAF ever stalls, parts rest posed but fully visible and
+  legible. Opacity of content never animates, so nothing can be hidden.
 - Capability labels were briefly wired to fade in at 72% progress and cut in
   review: that hid real content behind an interaction (rule 1). They print on
   the sheet from the start.
 - **Small screens (max-width 640px) and reduced motion get the static
-  assembled specimen**, no stage, no scrub. At 375px wide the scatter clipped
-  six of nine names mid-word at the viewport edge, which reads as broken, not
-  composed. D2: usability is never traded for a trend.
-- The stage is 180vh with a sticky viewport, roughly one screen of dwell. The
+  assembled specimen**, no stage, no scrub. At 375px wide the open pose clipped
+  names mid-word at the viewport edge, which reads as broken, not composed. D2:
+  usability is never traded for a trend.
+- The stage is 190vh with a sticky viewport, roughly one screen of dwell. The
   grid layer is `aria-hidden` and decorative.

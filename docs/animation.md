@@ -129,16 +129,23 @@ The Selected Work hover reveal. Hovering a row lights it, recedes its siblings t
 
 ### Toolkit exploded view (`sections/skills.tsx`)
 
-The one scroll-scrubbed set piece. On desktop the nine tool names open strewn
-across the sheet (deterministic offsets and rotations, over the faint
-`.draft-grid`) and scroll drives each part into its seat in sequence, grid
-fading as the composition locks. Implemented with `useScroll` +
-`useTransform` per part, each with its own settle window, eased on the
-mechanical curve.
+The one scroll-scrubbed set piece. On desktop the tool names open strewn across
+the sheet over a faint `.draft-grid`, and scroll drives each part into its seat
+in sequence. Implemented with `useScroll` + `useTransform` per part, each with
+its own settle window, eased on the mechanical curve.
 
-- **The resting layout is the natural flow layout.** Scatter is transform
-  only; content opacity never animates. JS dead or rAF stalled leaves posed
-  but fully legible type, never hidden content.
+- **Poses are derived, not hand-scattered** (`openPose`): rows stand off to
+  alternating sides and their parts fan along the row baseline, so the section
+  reads as one concertina closing rather than confetti. See
+  [`decisions.md`](./decisions.md#d19-the-toolkit-is-a-type-specimen-not-a-card-grid).
+- **Timing keeps ~3 parts moving at once** (`SPAN = 0.2` over a derived
+  stagger); the last part lands at 0.75 so the specimen holds before release.
+  The scroll offset `['start start', 'end end']` maps progress onto the pin.
+- **The grid is a constant faint layer** (`opacity-40`), not scroll-driven:
+  driving its opacity off progress made framer render it non-monotonically.
+- **The resting layout is the natural flow layout.** The open pose is transform
+  only; content opacity never animates. JS dead or rAF stalled leaves posed but
+  fully legible type, never hidden content.
 - Small screens (max-width 640px) and reduced motion skip the stage entirely
   and render the assembled specimen statically.
 - No entrance triggers, so it cannot suffer the stuck-invisible failure of
