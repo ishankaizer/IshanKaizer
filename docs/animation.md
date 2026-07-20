@@ -151,6 +151,23 @@ its own settle window, eased on the mechanical curve.
 - No entrance triggers, so it cannot suffer the stuck-invisible failure of
   rule 5; progress is a pure function of scroll position.
 
+### Light object (`components/common/light-object.tsx`)
+
+The cursor-lit 3D form in the dark `LightBand` interlude. A rounded graphite box
+raymarched in a single raw WebGL fragment shader (no dependency); the pointer is
+a moving light, and the surfaces and edges nearest it catch a diffuse highlight
+plus a `--brand` rim glow. See
+[`decisions.md`](./decisions.md#d20-the-light-band-a-cursor-lit-3d-interlude).
+
+- The rAF loop **pauses off-screen** (IntersectionObserver) and **falls back to
+  a static dark gradient** if WebGL is unavailable or the context is lost.
+- **Reduced motion**: no rotation or auto-orbit, unsmoothed cursor tracking,
+  settles to one frame then stops; a pointer event restarts it, since cursor
+  lighting is user-driven, not vestibular, motion.
+- **Coarse pointers** get a slow auto-orbit light so the form still breathes.
+- No content sits behind the canvas, so nothing can be hidden; DPR is capped and
+  raymarch steps bounded to keep the shader cheap.
+
 ### Route mask (`components/common/route-mask.tsx`)
 
 The project-open transition. Eight vertical bars scale up to cover the screen,

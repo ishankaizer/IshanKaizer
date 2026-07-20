@@ -7,6 +7,7 @@ import { Experience } from '@/sections/experience'
 import { Apart } from '@/sections/apart'
 import { Music } from '@/sections/music'
 import { Skills } from '@/sections/skills'
+import { LightBand } from '@/sections/light-band'
 import { Contact } from '@/sections/contact'
 
 export function HomePage() {
@@ -21,6 +22,7 @@ export function HomePage() {
       <Experience />
       <Apart />
       <Skills />
+      <LightBand />
       <Contact />
     </>
   )

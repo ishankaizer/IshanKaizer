@@ -293,3 +293,44 @@ Robustness reasoning, in the spirit of D8:
   usability is never traded for a trend.
 - The stage is 190vh with a sticky viewport, roughly one screen of dwell. The
   grid layer is `aria-hidden` and decorative.
+
+## D20. The light band: a cursor-lit 3D interlude
+
+Prompted by a Spline community scene (a form in darkness, revealed by a
+cursor-light with edge glow). The owner wanted "something beautiful in the
+background, hidden by darkness, lit by my cursor."
+
+The principle was taken, the skin was not (D1, D3-of-CLAUDE rule 3). A pitch-dark
+cursor-lit scene fights the whole site: warm draft paper, dark text, one accent.
+Dropped behind the live site it would either be hidden by the paper content or
+destroy legibility. So it lives in **one dedicated full-bleed dark section**
+(`sections/light-band.tsx`), placed just before Contact as a quiet crescendo.
+The rest of the site stays paper; this band is dark in both themes on purpose.
+
+Choices:
+
+- **Native raw WebGL, not Spline.** Spline means its runtime plus a scene from
+  its CDN: heavy, external, off-palette, against the site's self-hosting and
+  fast-load-for-recruiters priorities. `light-object.tsx` raymarches a rounded
+  graphite box in a single fragment shader, **zero new dependencies**. The glow
+  reads `--brand` at runtime, so the edge light is the site's own red pencil,
+  not a foreign colour.
+- **It states something real.** The caption ("a form only shows itself when
+  light finds its edges") is an industrial-design truth the object performs, so
+  the section is a statement about the owner's discipline, not decoration. That
+  is the governing rule: devices earn their place by measuring something real.
+
+Robustness (D8 and the animation rules):
+
+- No page content sits behind the canvas, so it can never hide anything. The
+  caption is a separate always-visible layer.
+- The rAF loop **pauses off-screen** (IntersectionObserver) and **falls back to
+  a static dark gradient panel** if WebGL is missing or the context is lost.
+- **Reduced motion**: no rotation, no auto-orbit, instant (unsmoothed) cursor
+  tracking; it settles to one frame and stops, but a pointer event restarts it
+  (cursor lighting is user-driven, not vestibular, motion).
+- **Coarse pointers** (no hover) get a slow auto-orbit light so the form still
+  breathes and reveals itself, rather than sitting as a dead black rectangle.
+- DPR capped at 1.6 and raymarch steps bounded, so the per-pixel shader stays
+  cheap on a full-width band.
+- Unnumbered, like the other interludes, so the 01 to 06 index is undisturbed.

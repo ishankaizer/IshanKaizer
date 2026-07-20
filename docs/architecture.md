@@ -92,19 +92,22 @@ The case study page branches on the data, not on a flag:
 Section order is defined in `src/pages/home.tsx`:
 
 ```
-Hero -> TermsBanner -> SelectedWork -> About -> Music -> Experience -> Apart -> Skills -> Contact
+Hero -> TermsBanner -> SelectedWork -> About -> Music -> Experience -> Apart -> Skills -> LightBand -> Contact
 ```
 
 The ordering is deliberate: `TermsBanner` (the discipline marquee) is the
 immediate beat after the hero, then Selected Work, so a recruiter reaches the
 work before any prose about who made it. See
 [`decisions.md`](./decisions.md#d12-selected-work-sits-directly-after-the-hero-about-follows-it).
+`LightBand` is a full-bleed dark WebGL interlude just before the closer; see
+[`decisions.md`](./decisions.md#d20-the-light-band-a-cursor-lit-3d-interlude).
 
 Numbered sections read 01 to 06 down the page: Selected Work (01, `SectionHeader`
 prop), About (02, inline eyebrow in `about.tsx`, not a `SectionHeader`),
 Experience (03), Apart (04), Skills (05), Contact (06). The unnumbered
-interludes (TermsBanner, Music) sit between them. **If you reorder sections,
-renumber**, both the `SectionHeader index` props and About's hardcoded span.
+interludes (TermsBanner, Music, LightBand) sit between them. **If you reorder
+sections, renumber**, both the `SectionHeader index` props and About's hardcoded
+span.
 
 ## Theming
 
