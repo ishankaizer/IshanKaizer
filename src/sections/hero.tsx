@@ -196,43 +196,22 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right: cute placeholder, an industrial-design nod. Desktop only. */}
+          {/* Right: portrait, an industrial-design nod. Desktop only. */}
           <div
             className="hero-stagger hidden lg:block"
             style={{ transitionDelay: '0.34s' }}
           >
             <div className="draft-grid relative aspect-square w-full overflow-hidden rounded-lg border border-hairline">
               <span className="absolute left-4 top-4 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-ink-mute">
-                Fig. 01 / placeholder
+                Fig. 01
               </span>
-              <div className="grid h-full place-items-center">
-                <svg
-                  viewBox="0 0 200 215"
-                  className="hero-float w-1/2 max-w-[220px]"
-                  fill="none"
-                  aria-hidden
-                >
-                  <path
-                    d="M100 40 L160 75 L100 110 L40 75 Z"
-                    stroke="var(--ink-soft)"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M40 75 L40 140 L100 175 L100 110 Z"
-                    stroke="var(--ink-soft)"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M160 75 L160 140 L100 175 L100 110 Z"
-                    stroke="var(--ink-soft)"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                  <circle cx="100" cy="40" r="4.5" fill="var(--brand)" />
-                </svg>
-              </div>
+              <img
+                src="/hero/fig-01.jpg"
+                alt="Ishan Kaizer"
+                loading="eager"
+                decoding="async"
+                className="size-full object-cover grayscale transition-[filter] duration-500 hover:grayscale-0"
+              />
               <span className="absolute bottom-4 right-4 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-brand">
                 object &middot; interface &middot; code
               </span>
