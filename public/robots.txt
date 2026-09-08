@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portfolio1-murex-gamma.vercel.app/sitemap.xml
+Sitemap: https://ishankaizer.vercel.app/sitemap.xml

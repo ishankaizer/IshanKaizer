@@ -30,15 +30,6 @@ touching the surrounding code. None of them break the site today.
   two of six projects now reveal a placeholder on hover. **Dropping a
   `cover.jpg` into each folder is the fix; no code change is needed.**
 
-## Stale references
-
-- **Canonical URL.** `site.url` and the `og:url` / `og:image` / JSON-LD `url`
-  values in `index.html`, plus `public/sitemap.xml` and `public/robots.txt`,
-  point at `https://portfolio1-murex-gamma.vercel.app`. The deploy now builds
-  from the `IshanKaizer` repo. If the live domain has changed, these need
-  updating together or social cards and canonical tags will point at the old
-  deployment.
-
 ## Inconsistencies
 
 - **`font-serif` is still used in nine places** (`footer.tsx`, `case-study.tsx`

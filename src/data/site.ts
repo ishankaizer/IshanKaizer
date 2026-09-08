@@ -6,7 +6,7 @@ export const site = {
   phone: '+91 93300 37443',
   /** Drop resume.pdf into /public and this resolves. */
   resumeUrl: '/resume.pdf',
-  url: 'https://portfolio1-murex-gamma.vercel.app',
+  url: 'https://ishankaizer.vercel.app',
   /** The 60-second value proposition. */
   intro:
     'I design things you touch and things you tap. End-to-end product experiences across industrial design, UX/UI and visualization.',
