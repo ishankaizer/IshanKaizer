@@ -104,5 +104,13 @@ export const music = {
   { title: "Crooks", artist: "The Slims", cover: "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02c29713132b34a0597928bf81" },
   { title: "Ode To The Mets", artist: "The Strokes", cover: "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02e3f1ba3de4659708c25d0f39" },
   { title: "Something Stupid (From \"Better Call Saul\")", artist: "Lola Marsh", cover: "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02263e48c2162aaa9ae5104daf" },
+  { title: "Spaghetti Western", artist: "Maudlin Strangers", cover: "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e028798d9ce19f7a7a2c584807d" },
+  { title: "The Other Life", artist: "Tempesst", cover: "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02debf45613b9ec9d39d6e4724" },
+  { title: "The Manifesto (feat. Trueno and Proof)", artist: "Gorillaz, Trueno, Proof", cover: "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0223f1a41d589c500870c03cd3" },
+  { title: "Is This All That There Is?", artist: "Tempesst", cover: "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0213c3174c62dea371a383bc5e" },
+  { title: "The Sad God (feat. Black Thought, Ajay Prasanna and Anoushka Shankar)", artist: "Gorillaz, Black Thought, Ajay Prasanna, Anoushka Shankar", cover: "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02eeb01b41f48210d032d1b6a4" },
+  { title: "Rags of Love", artist: "Tempesst", cover: "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02debf45613b9ec9d39d6e4724" },
+  { title: "Out of Time", artist: "The Weeknd", cover: "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e024ab2520c2c77a1d66b9ee21d" },
+  { title: "Waste It With You", artist: "Tempesst", cover: "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e0270f67c3d72dd3421a746b26e" },
   ] as Track[],
 }
