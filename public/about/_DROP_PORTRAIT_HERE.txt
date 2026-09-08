@@ -1,4 +1,0 @@
-Put your portrait here as:  portrait.jpg
-- A real photo of you. Portrait/4:5 crop works best, ~1200px tall.
-- Shows in the About section (grayscale, turns colour on hover).
-- Until it exists, a monogram placeholder shows automatically.
