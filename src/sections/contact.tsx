@@ -62,7 +62,7 @@ export function Contact() {
             </p>
             <a
               href={`mailto:${site.email}`}
-              className="mt-2 block text-balance font-display text-2xl font-black uppercase tracking-tight text-ink transition-colors hover:text-brand-strong sm:text-3xl"
+              className="mt-2 block break-words text-balance font-display text-2xl font-black uppercase tracking-tight text-ink transition-colors hover:text-brand-strong sm:text-3xl"
             >
               {site.email}
             </a>

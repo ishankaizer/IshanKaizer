@@ -56,13 +56,13 @@ export function Footer() {
       {/* Signature: the name, oversized, barely above the background and with
           its lower ~10% clipped below the bottom edge so it reads as rising
           out of the screen. */}
-      <div className="px-4">
+      <div className="overflow-hidden px-4">
         <p
           aria-hidden
-          className="select-none whitespace-nowrap text-center font-display text-[clamp(4rem,27vw,20rem)] font-black uppercase leading-[0.8] tracking-[-0.03em]"
+          className="select-none whitespace-nowrap text-center font-display text-[clamp(4rem,23vw,20rem)] font-black uppercase leading-[0.8] tracking-[-0.03em]"
           style={{
             color: 'color-mix(in oklab, var(--ink) 8%, var(--paper-2))',
-            marginBottom: '-0.3em',
+            marginBottom: '-0.22em',
           }}
         >
           Kaizer

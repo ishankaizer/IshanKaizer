@@ -134,10 +134,12 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   body {
     margin: 0;
     min-height: 100svh;
+    overflow-x: hidden;
     background: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);

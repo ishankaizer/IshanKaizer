@@ -136,7 +136,23 @@ export function Hero() {
         />
       )}
 
-      <Container>
+      {/* Mobile/tablet portrait: right-anchored, faded behind the text, masked
+          into the paper so it never competes with the name. Desktop uses the
+          framed Fig. 01 panel instead (see below). */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 w-[60%] lg:hidden"
+      >
+        <img
+          src="/hero/fig-01.jpg"
+          alt=""
+          loading="eager"
+          decoding="async"
+          className="size-full object-cover object-top opacity-[0.4] grayscale [mask-image:linear-gradient(to_left,black_25%,transparent_85%)] [-webkit-mask-image:linear-gradient(to_left,black_25%,transparent_85%)]"
+        />
+      </div>
+
+      <Container className="relative">
         <div className="grid min-h-[calc(100svh-4rem)] items-center gap-12 py-20 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Left: identity, nothing more. */}
           <div>
