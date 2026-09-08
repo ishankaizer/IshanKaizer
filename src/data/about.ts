@@ -35,20 +35,20 @@ export const toolGroups: ToolGroup[] = [
   {
     label: 'Interface',
     tools: [
-      { label: 'Figma', note: 'UX/UI, prototyping, systems', scale: 'lg' },
+      { label: 'Figma', note: 'UX/UI, prototyping, systems', scale: 'md' },
     ],
   },
   {
     label: 'Form & CAD',
     tools: [
-      { label: 'Blender', note: '3D modeling, render', scale: 'lg' },
+      { label: 'Blender', note: '3D modeling, render', scale: 'md' },
       { label: 'Fusion 360', note: 'CAD, mechanical form', scale: 'md' },
     ],
   },
   {
     label: 'Image & Print',
     tools: [
-      { label: 'Photoshop', note: 'Compositing, product viz', scale: 'md' },
+      { label: 'Photoshop', note: 'Compositing, product viz', scale: 'lg' },
       { label: 'Illustrator', note: 'Vector, iconography', scale: 'md' },
       { label: 'CorelDRAW', note: 'Print production', scale: 'sm' },
     ],
@@ -63,7 +63,9 @@ export const toolGroups: ToolGroup[] = [
   {
     label: 'Automation',
     tools: [
-      { label: 'Python', note: 'Scripts that delete the repetitive parts', scale: 'md' },
+      { label: 'Python', note: 'Scripts, macros', scale: 'md' },
+      { label: 'Claude Code', note: 'AI-assisted development', scale: 'sm' },
+      { label: 'ChatGPT', note: 'Research, ideation', scale: 'sm' },
     ],
   },
 ]

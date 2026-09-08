@@ -2,6 +2,12 @@ import type { ExperienceRole } from '@/types'
 
 export const experience: ExperienceRole[] = [
   {
+    when: 'Jul 2026 – Present',
+    role: 'Design Lead',
+    org: 'Sangeeth Samuel Design',
+    points: [],
+  },
+  {
     when: 'Feb – Jun 2026',
     role: 'Product Visualization & Design Intern',
     org: 'Material Depot',

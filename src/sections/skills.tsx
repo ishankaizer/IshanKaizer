@@ -79,7 +79,7 @@ function settleWindow(i: number, total: number): [number, number] {
 
 function ToolLabel({ tool }: { tool: (typeof toolGroups)[number]['tools'][number] }) {
   return (
-    <span className="group/tool inline-flex items-baseline gap-2.5">
+    <span className="group/tool inline-flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
       <span
         className={cn(
           'font-display font-black uppercase leading-[0.92] tracking-tight text-ink transition-colors duration-300 group-hover/tool:text-brand',

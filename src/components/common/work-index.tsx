@@ -161,14 +161,11 @@ function WorkRow({
           <span className="work-row__index shrink-0 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-ink-mute sm:text-sm">
             {String(index + 1).padStart(2, '0')}
           </span>
-          <h3 className="work-row__title truncate font-display font-black uppercase leading-[0.9] tracking-tight text-ink">
+          <h3 className="work-row__title min-w-0 break-words text-balance font-display font-black uppercase leading-[0.9] tracking-tight text-ink sm:truncate">
             {project.title}
           </h3>
         </div>
         <div className="flex shrink-0 items-center gap-5">
-          <span className="hidden font-mono text-xs uppercase tracking-[0.14em] text-ink-mute sm:block">
-            {project.year}
-          </span>
           <span
             aria-hidden
             className="work-row__arrow grid size-10 shrink-0 place-items-center rounded-full border border-hairline text-ink"
@@ -182,7 +179,6 @@ function WorkRow({
         <span className="text-ink-soft">{project.disciplines.join(' / ')}</span>
         <span aria-hidden className="h-px w-6 bg-hairline" />
         <span>{project.role}</span>
-        <span className="sm:hidden">{project.year}</span>
       </div>
 
       {showCoverInline && (

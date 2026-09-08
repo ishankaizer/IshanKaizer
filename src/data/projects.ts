@@ -68,6 +68,16 @@ const base: Omit<Project, 'study'>[] = [
     featured: true,
     cover: '/projects/miscellaneous/cover.jpg',
   },
+  {
+    slug: 'soul-ai',
+    title: 'Soul AI',
+    tagline: 'Case study in progress, check back soon.',
+    disciplines: ['Product'],
+    year: 'In progress',
+    role: 'Product Design',
+    featured: true,
+    // No cover yet: ProjectCover falls back to the composed placeholder.
+  },
 ]
 
 /** Number of rendered deck slides per project (public/projects/<slug>/slides). */
