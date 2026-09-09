@@ -79,6 +79,7 @@ const SLIDE_COUNTS: Record<string, number> = {
   wellbell: 6,
   levelstretch: 7,
   miscellaneous: 11,
+  materia: 14,
 }
 
 function slidePaths(slug: string): string[] {
