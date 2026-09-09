@@ -38,15 +38,16 @@ No component changes are needed for any of this.
 
 - `hook`, a one-line, three-second read: what it is, the role, the outcome
 - `overview`, timeline / team / platform / tools
-- `problem`, the real user problem and the stakes
-- `contributions`, exactly what Ishan did versus the team
-- `process`, research to insight to exploration, in ordered sections
-- `decisions`, two or three hard trade-offs with reasoning
-- `outcome`, optional stats plus prose
-- `reflection`, what he would do differently, which signals seniority
+- `problem`, the real user problem and the stakes, in **one** short paragraph
+- `contributions`, exactly what Ishan did versus the team, in **three** terse lines
+
+That is the whole shape. The deck carries the depth, so the written study is
+framing only and is kept deliberately short: see
+[`decisions.md`](./decisions.md#d18-the-deck-leads-the-case-study-the-written-story-follows-it).
+Resist growing it back. If a point is worth making, it belongs on a slide.
 
 **Never fabricate metrics.** Honest qualitative outcomes are correct and
-preferred over invented numbers. `outcome.stats` is optional for this reason.
+preferred over invented numbers.
 
 ## Drop-in assets
 

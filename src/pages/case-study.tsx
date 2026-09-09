@@ -4,14 +4,11 @@ import { getProject, getAdjacentCaseStudies } from '@/data/projects'
 import type { Project } from '@/types'
 import { Seo } from '@/components/common/seo'
 import { Container } from '@/components/common/container'
-import { Reveal } from '@/components/common/reveal'
 import { useRouteMaskNavigate } from '@/components/common/route-mask'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ProjectCover } from '@/components/common/project-cover'
-import { CaseMediaFrame } from '@/components/case/case-media'
 import { SlideGallery } from '@/components/case/slide-gallery'
-import { CountUp } from '@/components/common/count-up'
 import { ReadingProgress } from '@/components/common/reading-progress'
 import { NotFoundPage } from './not-found'
 
@@ -126,9 +123,10 @@ function CaseStudyContent({ project }: { project: Project & { study: NonNullable
             rather than 7 screens after. */}
         <SlideGallery slides={project.slides ?? []} projectTitle={project.title} />
 
-        {/* Body: centred reading column, media breaks out wider */}
+        {/* Body: a short centred reading column. Framing only, the deck above
+            carries the depth. */}
         <Container className="py-16">
-          <div className="mx-auto flex max-w-3xl flex-col gap-16">
+          <div className="mx-auto flex max-w-3xl flex-col gap-12">
             <Block label="The problem" title="Why this needed solving">
               <Paragraphs items={study.problem} />
             </Block>
@@ -142,68 +140,6 @@ function CaseStudyContent({ project }: { project: Project & { study: NonNullable
                   </li>
                 ))}
               </ul>
-            </Block>
-
-            <Block label="Process" title="From research to resolution">
-              <div className="flex flex-col gap-12">
-                {study.process.map((sec, i) => (
-                  <Reveal key={sec.heading} delay={i * 0.04}>
-                    <div className="flex flex-col gap-5">
-                      <h3 className="font-display text-lg font-bold uppercase tracking-tight text-ink">
-                        {sec.heading}
-                      </h3>
-                      <Paragraphs items={sec.body} />
-                      {sec.media && (
-                        <CaseMediaFrame
-                          media={sec.media}
-                          className="mt-2 lg:-mx-16 xl:-mx-24"
-                        />
-                      )}
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </Block>
-
-            <Block label="Key decisions" title="The trade-offs I stand behind">
-              <div className="flex flex-col gap-4">
-                {study.decisions.map((d, i) => (
-                  <div
-                    key={d.title}
-                    className="rounded-xl border border-hairline bg-paper-2 p-6"
-                  >
-                    <div className="flex items-baseline gap-3">
-                      <span className="font-mono text-xs font-semibold text-brand">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <h3 className="font-display text-lg font-bold uppercase tracking-tight text-ink">
-                        {d.title}
-                      </h3>
-                    </div>
-                    <p className="mt-3 leading-relaxed text-ink-soft">{d.body}</p>
-                  </div>
-                ))}
-              </div>
-            </Block>
-
-            <Block label="Outcome" title="Where it landed">
-              {study.outcome.stats && study.outcome.stats.length > 0 && (
-                <dl className="mb-8 grid grid-cols-2 gap-6 sm:grid-cols-3">
-                  {study.outcome.stats.map((s) => (
-                    <div key={s.label} className="flex flex-col gap-1">
-                      <dt className="font-display text-4xl font-black tracking-tight text-brand">
-                        <CountUp value={s.value} />
-                      </dt>
-                      <dd className="text-sm text-ink-mute">{s.label}</dd>
-                    </div>
-                  ))}
-                </dl>
-              )}
-              <Paragraphs items={study.outcome.body} />
-            </Block>
-
-            <Block label="Reflection" title="What I’d do differently">
-              <Paragraphs items={study.reflection} />
             </Block>
           </div>
         </Container>

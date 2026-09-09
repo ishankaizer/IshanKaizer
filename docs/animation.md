@@ -209,6 +209,10 @@ coarse pointers, and the native cursor is untouched when JS is off.
 
 ### `CountUp`
 
+**Currently unused**, see [`known-gaps.md`](./known-gaps.md). Its only caller was
+the case study's outcome stats, removed in
+[D21](./decisions.md#d21-the-written-case-study-is-framing-not-a-second-telling).
+
 Counts to the number inside a string (preserving prefix and suffix such as
 `"68%"`) when scrolled into view. IntersectionObserver at `threshold: 0.4`,
 cubic ease-out, fires once. Shows the final value immediately under reduced

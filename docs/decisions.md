@@ -216,8 +216,8 @@ each near-square slide taller. That was accepted knowingly: scrolling the deck i
 a recruiter looking at the work, whereas scrolling preamble to reach it is not.
 Length was never the problem; order was.
 
-**Not done, and worth revisiting:** the written study genuinely duplicates the
-deck. Trimming it to a short "at a glance" was offered and declined for now.
+**Now done (see D21):** the written study genuinely duplicated the deck, and it
+has since been cut back to framing only.
 
 ## D19. The toolkit is a type specimen, not a card grid
 
@@ -334,3 +334,30 @@ Robustness (D8 and the animation rules):
 - DPR capped at 1.6 and raymarch steps bounded, so the per-pixel shader stays
   cheap on a full-width band.
 - Unnumbered, like the other interludes, so the 01 to 06 index is undisturbed.
+
+## D21. The written case study is framing, not a second telling
+
+D18 moved the deck above the prose but left the prose intact. It was still
+roughly 750 words per project of process sections, trade-off cards, outcome and
+reflection, restating what slides 01 to 05 already show, and better.
+
+Nobody reads it. A hiring manager scanning for 30 to 60 seconds wants to know
+what the thing is, why it needed solving, and what Ishan actually did. Then they
+want to look at the work.
+
+So `CaseStudy` was cut to four fields: `hook`, `overview`, `problem` (one
+paragraph) and `contributions` (three lines). `process`, `decisions`, `outcome`
+and `reflection` were removed from the type, the data and the page. Around 90%
+of the written body is gone.
+
+The page is now: title, hook, cover, spec row, **deck**, one problem paragraph,
+three role lines, prev/next, CTA.
+
+What was given up, knowingly: the trade-off cards were the strongest signal of
+seniority in the prose. The bet is that the deck demonstrates the same judgment
+by showing the work, and that a conversation is the right place for the rest,
+which is what the closing CTA already asks for.
+
+**If this is ever reversed,** the removed shape is in git history and
+`CaseMediaFrame` and `CountUp` still exist unused (see
+[`known-gaps.md`](./known-gaps.md)).

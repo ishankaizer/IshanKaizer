@@ -14,6 +14,9 @@ touching the surrounding code. None of them break the site today.
 | `.no-scrollbar` in `index.css` | Unused. |
 | `--ease-mech` (`@theme` at the end of `index.css`) | Now **partly adopted**: the `.work-*` rules use `var(--ease-mech)`. The rest of the file still hard codes `cubic-bezier(0.16, 0.84, 0.3, 1)`. Finish the migration or drop the token. |
 | `site.positioning` in `src/data/site.ts` | Unused since the hero was stripped back to identity only. |
+| `src/components/case/case-media.tsx` (`CaseMediaFrame`) | **Unused** since the written case study was cut back to framing only (see [`decisions.md`](./decisions.md#d21-the-written-case-study-is-framing-not-a-second-telling)). Its only caller was the removed `process` block. Kept, not deleted, so the cut stays reversible. |
+| `src/components/common/count-up.tsx` (`CountUp`) | **Unused** for the same reason: its only caller was the removed `outcome.stats` block. |
+| `CaseMedia`, `CaseSection`, `Decision`, `MetricStat` in `src/types/index.ts` | No longer referenced by `CaseStudy`. `CaseMedia` is still imported by the dead `case-media.tsx`. |
 | `@fontsource/instrument-serif` in `package.json` | **Unused dependency.** Never imported. Left over from the retired serif voice. |
 
 ## Missing content

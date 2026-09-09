@@ -32,6 +32,10 @@ export interface Decision {
   body: string
 }
 
+/**
+ * The deck carries the depth. The written study is deliberately short: enough
+ * to frame the work before the slides, never a second telling of it.
+ */
 export interface CaseStudy {
   /** One-line, 3-second read: what it is, the role, the outcome. */
   hook: string
@@ -41,20 +45,10 @@ export interface CaseStudy {
     platform: string
     tools: string[]
   }
-  /** The real user problem and stakes. */
+  /** The real user problem and stakes. One short paragraph. */
   problem: string[]
-  /** Exactly what Ishan did, vs. the team. */
+  /** Exactly what Ishan did, vs. the team. Three terse lines. */
   contributions: string[]
-  /** Research -> insight -> exploration, in ordered sections. */
-  process: CaseSection[]
-  /** 2-3 hard trade-offs with the reasoning. */
-  decisions: Decision[]
-  outcome: {
-    stats?: MetricStat[]
-    body: string[]
-  }
-  /** What he'd do differently, signals seniority. */
-  reflection: string[]
 }
 
 export interface Project {
