@@ -1,6 +1,5 @@
 export const site = {
   name: 'Ishan Kaizer',
-  role: 'Product · UX/UI · Industrial Designer',
   location: 'Bengaluru, India',
   email: 'ishankaizer@gmail.com',
   phone: '+91 93300 37443',
@@ -13,7 +12,6 @@ export const site = {
   /** Longer positioning line for the hero / about. */
   positioning:
     'Final-year Industrial Design student who ships interfaces. I take a product from physical form to working software, and automate the grind with Python.',
-  availability: 'Open to product & UX design roles for 2026',
   socials: [
     { label: 'LinkedIn', href: 'https://linkedin.com/in/ishankaizer', handle: 'in/ishankaizer' },
     { label: 'Behance', href: 'https://behance.net/ishankaizer', handle: 'behance.net/ishankaizer' },

@@ -9,10 +9,7 @@ export function Footer() {
       <Container className="flex flex-col gap-10 pt-16 pb-8">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-md">
-            <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-mute">
-              {site.availability}
-            </p>
-            <p className="mt-3 text-balance font-display text-2xl font-black uppercase leading-tight tracking-tight text-ink sm:text-3xl">
+            <p className="text-balance font-display text-2xl font-black uppercase leading-tight tracking-tight text-ink sm:text-3xl">
               Let&rsquo;s build something{' '}
               <span className="font-serif font-normal normal-case italic text-brand">
                 worth shipping.

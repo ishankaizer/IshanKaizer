@@ -8,7 +8,7 @@ import { site } from '@/data/site'
 
 const reasons = [
   {
-    title: 'Two disciplines, one hire',
+    title: 'Two disciplines, one person',
     body: 'Industrial design and UX/UI in the same person. I can own a product from physical form to shipped interface without the handoff gap.',
   },
   {
@@ -35,7 +35,7 @@ export function Contact() {
             </span>
           </>
         }
-        description="Open to product and UX design roles for 2026. If your team builds things that live in the real world and on a screen, we’ll get along."
+        description="If your team builds things that live in the real world and on a screen, we’ll get along."
       />
 
       <div className="mt-14 grid gap-8 lg:grid-cols-3">

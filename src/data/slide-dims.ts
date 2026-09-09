@@ -128,8 +128,12 @@ export const slideDims: Record<string, [number, number][]> = {
       1259
     ],
     [
+      1200,
+      7305
+    ],
+    [
       1500,
-      2158
+      1205
     ]
   ],
   "park-it": [

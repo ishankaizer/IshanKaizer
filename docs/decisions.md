@@ -450,31 +450,77 @@ individually exported, web-weight slide images first, the same as every other
 project's deck. See [`content.md`](./content.md#adding-a-project) for the
 weight bar to hit.
 
-## D26. Selected Work order: Materia leads, Miscellaneous closes
+## D26. Selected Work order, set directly by the owner
 
 The `base` array order in `src/data/projects.ts` is the Selected Work order
 (see D6). It had drifted to roughly the order projects were added rather than
-a considered sequence, and the owner asked for a proper one now that Materia
-and Soul AI both have full decks and covers.
+a considered sequence.
 
-Current order and the reasoning:
+An assistant-proposed order (Materia leading, reasoned by completeness and
+range) was tried first and then overridden by the owner with the order he
+actually wanted. **Current, final order:**
 
-1. **Materia**, the range signal: research through a shipped React product,
-   including Python automation. The strongest answer to "can this person
-   actually build the thing."
-2. **Park IT**, a classic end-to-end UX case study: field research across
-   three cities, a validated prototype, and a written narrative to match.
-3. **Soul AI**, the most ambitious and timeliest concept (hardware plus an
-   AI-orchestration layer), carried by its 34-slide deck even without a
-   written case study yet.
-4. **Levelstretch**, the most ambitious industrial-design system (mechanism,
-   IoT, companion app).
-5. **WellBell**, industrial design plus a connected app, smaller in scope
-   than Levelstretch.
-6. **Binkli**, a live, lightweight UX/UI toy. Good change of pace, external
-   link.
-7. **Miscellaneous**, the graphic/packaging grab-bag. Appropriately last.
+1. Park IT
+2. WellBell
+3. Soul AI
+4. Materia
+5. Levelstretch
+6. Binkli
+7. Miscellaneous
 
-This is an editorial call, not a mechanical one. Revisit it whenever a
-project's completeness changes materially (Soul AI getting a written case
-study, for instance).
+This is the owner's explicit call, not derived from a rubric. **Do not
+re-derive or "improve" this order from project completeness, recency, or any
+other heuristic.** If it ever needs to change, ask, or wait to be told the new
+sequence, the way it was given here.
+
+## D27. No job-seeking language anywhere on the site
+
+The owner asked for every "looking for a product/UX role" style mention
+removed, especially the job-title framing on the site's own name. This was
+spread across more places than expected:
+
+- `site.role` (`'Product · UX/UI · Industrial Designer'`) and
+  `site.availability` (`'Open to product & UX design roles for 2026'`) in
+  `src/data/site.ts`, both removed from the type entirely, not just unused.
+- The default document `<title>` (`Seo` component, used on the homepage)
+  used `site.role` to build `"Ishan Kaizer · Product & UX Designer"`. Now
+  just `site.name`.
+- `index.html`'s static `<title>`, meta description, OG/Twitter title and
+  description, `og:image:alt`, and the JSON-LD `Person.jobTitle` field all
+  independently hardcoded a "Product & UX Designer" style title. All
+  simplified to the name alone, or to `site.intro` for description-shaped
+  fields. `jobTitle` was removed from the JSON-LD entirely, not reworded.
+- The generated OG share-card image (`scripts/gen-og.mjs` renders
+  `public/og.png`) had the same line baked into the SVG as literal text.
+  Removed and the layout tightened; regenerate with `node scripts/gen-og.mjs`
+  if this file is ever hand-edited again.
+- The footer's eyebrow line above "Let's build something worth shipping"
+  rendered `site.availability` directly. Removed along with the data field.
+- The Contact section (`src/sections/contact.tsx`) had two independent
+  instances: the `SectionHeader` description ("Open to product and UX design
+  roles for 2026...") and a card titled "Two disciplines, one hire". Reworded
+  to drop the role-seeking framing while keeping the pitch (why hire him,
+  without the word landing as a job-board headline): title is now "Two
+  disciplines, one person", description drops the first sentence entirely.
+
+**Do not reintroduce a "seeking X role" or job-title-style line anywhere,
+including generated assets (OG image, favicons) and structured data
+(JSON-LD).** If the site needs to signal availability again, ask the owner
+for the exact wording rather than defaulting to resume language.
+
+## D28. Miscellaneous deck: closing collage + thank-you slide
+
+Following the owner's direction: slide 11 (previously the deck's last slide)
+was replaced with a dense photo-collage "wall of everything" image (source
+file the owner dropped in as `118.png`, 1920x11688 natively), and a new
+slide 12 was appended, a "Thank You" closing slide (source `119.png`).
+`SLIDE_COUNTS.miscellaneous` is now 12.
+
+The collage slide is a deliberate exception to the deck weight bar in
+[`content.md`](./content.md#adding-a-project) (largest slide elsewhere on the
+site is ~420KB): it's ~934KB even resized to 1200px wide and compressed to
+webp quality 70, because it's dozens of distinct photographic sub-images
+stacked into one ~9000px-tall canvas, not a single UI screen. Pushing quality
+or width down further stopped meaningfully reducing size well before it
+looked acceptable, so this was accepted as the cost of shipping the actual
+asset the owner wanted, not a mistake to "fix" later.

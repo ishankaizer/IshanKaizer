@@ -15,7 +15,7 @@ interface SeoProps {
  * title, description and canonical for browsers and JS crawlers.
  */
 export function Seo({ title, description = site.intro, path = '/' }: SeoProps) {
-  const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.role}`
+  const fullTitle = title ? `${title} · ${site.name}` : site.name
   const url = `${site.url}${path}`
 
   return (

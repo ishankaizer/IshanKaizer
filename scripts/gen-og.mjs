@@ -28,10 +28,8 @@ const svg = `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http:/
   <text x="84" y="300" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="164" letter-spacing="-6" fill="${ink}">Ishan</text>
   <text x="84" y="452" font-family="Georgia, serif" font-style="italic" font-size="168" fill="${brand}">Kaizer</text>
 
-  <text x="90" y="536" font-family="Arial, sans-serif" font-size="34" fill="${inkSoft}">Product &#183; UX/UI &#183; Industrial Designer</text>
-
-  <rect x="90" y="576" width="54" height="4" fill="${brand}"/>
-  <text x="90" y="600" font-family="Arial, sans-serif" font-size="22" letter-spacing="1" fill="${inkMute}">I design things you touch &amp; screens you tap.</text>
+  <rect x="90" y="500" width="54" height="4" fill="${brand}"/>
+  <text x="90" y="536" font-family="Arial, sans-serif" font-size="28" letter-spacing="1" fill="${inkSoft}">I design things you touch &amp; screens you tap.</text>
 </svg>`
 
 mkdirSync(resolve(root, 'public'), { recursive: true })

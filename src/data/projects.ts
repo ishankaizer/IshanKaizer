@@ -8,15 +8,6 @@ import { caseStudyBySlug } from './case-studies'
  */
 const base: Omit<Project, 'study'>[] = [
   {
-    slug: 'materia',
-    title: 'Materia',
-    tagline: 'A material-discovery platform for interior designers, shipped as a working React product.',
-    disciplines: ['Product', 'UX/UI', 'Visualization'],
-    role: 'Product Design & Front-end',
-    featured: true,
-    cover: '/projects/materia/cover.jpg',
-  },
-  {
     slug: 'park-it',
     title: 'Park IT',
     tagline: 'A smart-parking app that turns circling for a spot into a two-tap reservation.',
@@ -24,6 +15,15 @@ const base: Omit<Project, 'study'>[] = [
     role: 'UX Research & Product Design',
     featured: true,
     cover: '/projects/park-it/cover.jpg',
+  },
+  {
+    slug: 'wellbell',
+    title: 'WellBell',
+    tagline: 'A connected pill dispenser that helps seniors take the right dose at the right time.',
+    disciplines: ['Industrial Design', 'UX/UI'],
+    role: 'Industrial & Interaction Design',
+    featured: true,
+    cover: '/projects/wellbell/cover.jpg',
   },
   {
     slug: 'soul-ai',
@@ -35,6 +35,15 @@ const base: Omit<Project, 'study'>[] = [
     cover: '/projects/soul-ai/cover.jpg',
   },
   {
+    slug: 'materia',
+    title: 'Materia',
+    tagline: 'A material-discovery platform for interior designers, shipped as a working React product.',
+    disciplines: ['Product', 'UX/UI', 'Visualization'],
+    role: 'Product Design & Front-end',
+    featured: true,
+    cover: '/projects/materia/cover.jpg',
+  },
+  {
     slug: 'levelstretch',
     title: 'Levelstretch',
     tagline: 'A self-leveling ambulance stretcher that streams live vitals to the hospital en route.',
@@ -42,15 +51,6 @@ const base: Omit<Project, 'study'>[] = [
     role: 'Industrial Design & IoT',
     featured: true,
     cover: '/projects/levelstretch/cover.jpg',
-  },
-  {
-    slug: 'wellbell',
-    title: 'WellBell',
-    tagline: 'A connected pill dispenser that helps seniors take the right dose at the right time.',
-    disciplines: ['Industrial Design', 'UX/UI'],
-    role: 'Industrial & Interaction Design',
-    featured: true,
-    cover: '/projects/wellbell/cover.jpg',
   },
   {
     slug: 'binkli',
@@ -78,7 +78,7 @@ const SLIDE_COUNTS: Record<string, number> = {
   'park-it': 11,
   wellbell: 6,
   levelstretch: 7,
-  miscellaneous: 11,
+  miscellaneous: 12,
   materia: 13,
   'soul-ai': 34,
 }
