@@ -428,8 +428,25 @@
 .postcard--back {
   --tilt: 1.5deg;
 }
-.postcard:hover {
+.postcard:hover,
+.postcard-link:hover .postcard,
+.postcard-link:focus-visible .postcard {
   transform: rotate(0deg) translateY(-8px);
+}
+
+/* Two mediums: the sibling card becomes a photo while one card is hovered.
+   Photo is an overlay that only exists during hover; text is the resting state. */
+.apart-photo {
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 0.35s ease,
+    transform 0.7s cubic-bezier(0.16, 0.84, 0.3, 1);
+  pointer-events: none;
+}
+.apart-photo.is-on {
+  opacity: 1;
+  transform: none;
 }
 
 /* Case-study entrance: the title rises out of a mask, meta fades up, and the

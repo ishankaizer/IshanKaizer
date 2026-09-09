@@ -1,28 +1,40 @@
 import type { Philosophy, Tool } from '@/types'
 
 export const about = {
-  /** Short, spacious About. Kept deliberately minimal. */
-  statement: 'I make things you touch, and things you tap.',
-  sub: 'An industrial designer now designing the interfaces and shipping the code too. Based in Bengaluru.',
+  /** Short, spacious About, in the owner's own voice. */
+  statement: 'Here for a good time, not a long time. Unless it’s at your company.',
+  sub: 'Industrial designer who ended up designing the screens and shipping the code too. Living life one beer at a time, in Bengaluru.',
 }
 
+/**
+ * The two cards in "Two mediums, one instinct". Hovering a card hides the
+ * other card's text and shows this card's `image` in its place.
+ */
 export const philosophies: Philosophy[] = [
   {
     label: 'On interfaces',
+    title: 'Tap',
     text: 'UX is paying attention to how people move, hesitate, tap and get confused. When something works, users never think about the interface. They just keep going.',
+    image: {
+      src: '/apart/old-man.webp',
+      alt: 'An old man in a suit leaning in very close to a computer monitor',
+      width: 900,
+      height: 1200,
+    },
+    caption: 'Me, reading your app',
   },
   {
     label: 'On objects',
+    title: 'Touch',
     text: 'I’m drawn to physical products because they’re honest. You feel immediately whether something is uncomfortable, awkward or thoughtfully made. There’s nowhere to hide.',
+    image: {
+      src: '/apart/orangutan.webp',
+      alt: 'An orangutan sawing a branch with a hand saw',
+      width: 460,
+      height: 460,
+    },
+    caption: 'Me, in the workshop',
   },
-]
-
-export const hobbies = [
-  'Music',
-  'Football',
-  'Photography',
-  'Travel',
-  'Video editing',
 ]
 
 /**

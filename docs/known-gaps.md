@@ -32,8 +32,8 @@ touching the surrounding code. None of them break the site today.
 
 ## Inconsistencies
 
-- **`font-serif` is still used in nine places** (`footer.tsx`, `case-study.tsx`
-  x2, `apart.tsx` x2, `experience.tsx`, `selected-work.tsx`, `skills.tsx`,
+- **`font-serif` is still used in eight places** (`footer.tsx`, `case-study.tsx`
+  x2, `apart.tsx`, `experience.tsx`, `selected-work.tsx`, `skills.tsx`,
   `likes.tsx`), usually as `font-serif italic` for an accent phrase. Since
   `--font-serif` is aliased to Archivo, these render as **Archivo italic**, not a
   serif. This is intentional as a safety net, but the class name now lies about

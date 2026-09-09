@@ -597,3 +597,28 @@ Blender, green for ChatGPT, the caterpillar for Python, the patchwork for
 Figma, the pixel "Fragile" for Photoshop, the running dogs for Premiere, the
 starry horse for After Effects, the monkey for Claude Code); reassign by
 editing the `icon` paths, no component change needed.
+
+## D32. The playful pass: voice, hover-swap cards, and less chrome on the desk
+
+Following the owner's direction after seeing D29 to D31 live:
+
+- **About speaks in his voice.** "I make things you touch, and things you
+  tap" was called generic. The statement and sub are now his own lines
+  ("Here for a good time, not a long time. Unless it's at your company." and
+  "Living life one beer at a time"). This is the owner's chosen register for
+  the About, not resume language, and does not conflict with D27.
+- **Two mediums (04) is a hover swap.** Two cards, "Tap" (interfaces) and
+  "Touch" (objects). Hovering one keeps its words and turns the *other* card
+  into a photo of the owner at that medium (old man glued to a monitor, an
+  orangutan with a saw), with a mono caption. The photo is an overlay that only
+  exists while a pointer is over the sibling, so text is always the resting
+  state (D8); touch taps toggle. The hobbies pill row was dropped from this
+  section because section 06 now covers it.
+- **Toolkit** is titled "Folders I live in" (the icons are folders), with
+  wider gaps and bigger file labels.
+- **Things I like** no longer floats its title in a box on the wallpaper. The
+  header and the wallpaper switcher sit on the paper above the board like
+  every other section; the board carries only wallpaper and stickers.
+- **Contact** is titled "Need me? Here's where to find me." The postcards get
+  a 1440px sheet of their own (so they sit near native size) and overlap on
+  desktop like a pile, and the back card is a `mailto:` link with a mono hint.

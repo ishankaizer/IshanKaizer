@@ -15,17 +15,17 @@ export function Skills() {
         eyebrow="Toolkit"
         title={
           <>
-            The tools I{' '}
+            Folders I{' '}
             <span className="font-serif font-normal normal-case italic text-brand">
-              reach for.
+              live in.
             </span>
           </>
         }
       />
 
-      <ul className="mt-12 flex flex-wrap justify-center gap-x-4 gap-y-8 sm:mt-14 sm:gap-x-8 sm:gap-y-10">
+      <ul className="mt-14 flex flex-wrap justify-center gap-x-6 gap-y-10 sm:mt-16 sm:gap-x-10 sm:gap-y-12 lg:gap-x-12 lg:gap-y-14">
         {tools.map((tool, i) => (
-          <li key={tool.label} className="w-[28%] max-w-[168px] sm:w-[22%] lg:w-[13.5%]">
+          <li key={tool.label} className="w-[27%] max-w-[176px] sm:w-[20%] lg:w-[12.5%]">
             <Reveal delay={i * 0.035} y={14}>
               <figure className="folder flex flex-col items-center gap-3 text-center">
                 <img
@@ -37,7 +37,7 @@ export function Skills() {
                   decoding="async"
                   className="block h-auto w-full"
                 />
-                <figcaption className="font-mono text-[0.68rem] uppercase tracking-[0.12em] text-ink-soft transition-colors sm:text-xs">
+                <figcaption className="font-mono text-sm uppercase tracking-[0.1em] text-ink-soft transition-colors sm:text-[0.95rem]">
                   {tool.label}
                 </figcaption>
               </figure>

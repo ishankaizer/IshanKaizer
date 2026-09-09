@@ -9,7 +9,7 @@ to change to update content.
 |---|---|
 | Name, role, location, email, phone, socials, availability | `src/data/site.ts` |
 | The About statement | `src/data/about.ts` (`statement`, `sub`) |
-| Philosophies, hobbies, tools | `src/data/about.ts` |
+| The two "Two mediums" cards (words, hover photo, caption), tools | `src/data/about.ts` |
 | Roles and history | `src/data/experience.ts` |
 | Project cards | `src/data/projects.ts` |
 | A long-form case study | `src/data/case-studies/<slug>.ts` |
