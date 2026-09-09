@@ -449,3 +449,32 @@ to the browser as-is regardless of how it arrives. It needs to become
 individually exported, web-weight slide images first, the same as every other
 project's deck. See [`content.md`](./content.md#adding-a-project) for the
 weight bar to hit.
+
+## D26. Selected Work order: Materia leads, Miscellaneous closes
+
+The `base` array order in `src/data/projects.ts` is the Selected Work order
+(see D6). It had drifted to roughly the order projects were added rather than
+a considered sequence, and the owner asked for a proper one now that Materia
+and Soul AI both have full decks and covers.
+
+Current order and the reasoning:
+
+1. **Materia**, the range signal: research through a shipped React product,
+   including Python automation. The strongest answer to "can this person
+   actually build the thing."
+2. **Park IT**, a classic end-to-end UX case study: field research across
+   three cities, a validated prototype, and a written narrative to match.
+3. **Soul AI**, the most ambitious and timeliest concept (hardware plus an
+   AI-orchestration layer), carried by its 34-slide deck even without a
+   written case study yet.
+4. **Levelstretch**, the most ambitious industrial-design system (mechanism,
+   IoT, companion app).
+5. **WellBell**, industrial design plus a connected app, smaller in scope
+   than Levelstretch.
+6. **Binkli**, a live, lightweight UX/UI toy. Good change of pace, external
+   link.
+7. **Miscellaneous**, the graphic/packaging grab-bag. Appropriately last.
+
+This is an editorial call, not a mechanical one. Revisit it whenever a
+project's completeness changes materially (Soul AI getting a written case
+study, for instance).

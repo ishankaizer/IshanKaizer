@@ -21,17 +21,14 @@ touching the surrounding code. None of them break the site today.
 
 ## Missing content
 
-- **`binkli` and `materia` have no cover asset.** `public/projects/binkli/` and
-  `public/projects/materia/` contain only `_DROP_IMAGES_HERE.txt` (plus an
-  unrelated `capstone poster.jpg`), so both fall back to the composed
-  `ProjectCover` placeholder. The dev server answers the missing path with a
-  `200 text/html` SPA fallback rather than a 404; the image still fails to decode,
-  so `onError` fires and the placeholder shows as intended.
+- **`binkli` has no cover asset.** `public/projects/binkli/` contains only
+  `_DROP_IMAGES_HERE.txt`, so it falls back to the composed `ProjectCover`
+  placeholder. The dev server answers the missing path with a `200 text/html`
+  SPA fallback rather than a 404; the image still fails to decode, so
+  `onError` fires and the placeholder shows as intended. Dropping a
+  `cover.jpg` into the folder is the fix; no code change is needed.
 
-  This was tolerable when covers were half-width thumbnails. Since the work index
-  is image-forward (see [`decisions.md`](./decisions.md#d16-selected-work-is-a-hover-reveal-index-not-a-card-grid)),
-  two of six projects now reveal a placeholder on hover. **Dropping a
-  `cover.jpg` into each folder is the fix; no code change is needed.**
+  (`materia` and `soul-ai` had the same gap; both now have a `cover.jpg`.)
 
 ## Inconsistencies
 
