@@ -49,7 +49,6 @@ function CaseStudyContent({ project }: { project: Project & { study: NonNullable
   const { prev, next } = getAdjacentCaseStudies(project.slug)
 
   const overview = [
-    { label: 'Timeline', value: study.overview.timeline },
     { label: 'Role', value: study.overview.team },
     { label: 'Platform', value: study.overview.platform },
     { label: 'Tools', value: study.overview.tools.join(', ') },
@@ -106,7 +105,7 @@ function CaseStudyContent({ project }: { project: Project & { study: NonNullable
             className="cs-cover aspect-[16/9] w-full rounded-xl border border-hairline"
           />
 
-          <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-6 border-y border-hairline py-8 lg:grid-cols-4">
+          <dl className="mt-8 grid grid-cols-3 gap-x-6 gap-y-6 border-y border-hairline py-8">
             {overview.map((o) => (
               <div key={o.label} className="flex flex-col gap-1.5">
                 <dt className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-mute">
@@ -129,17 +128,6 @@ function CaseStudyContent({ project }: { project: Project & { study: NonNullable
           <div className="mx-auto flex max-w-3xl flex-col gap-12">
             <Block label="The problem" title="Why this needed solving">
               <Paragraphs items={study.problem} />
-            </Block>
-
-            <Block label="My role" title="What I did, specifically">
-              <ul className="flex flex-col gap-3">
-                {study.contributions.map((c) => (
-                  <li key={c.slice(0, 24)} className="flex gap-3 text-lg text-ink-soft">
-                    <span aria-hidden className="mt-2.5 size-1.5 shrink-0 rounded-full bg-brand" />
-                    <span>{c}</span>
-                  </li>
-                ))}
-              </ul>
             </Block>
           </div>
         </Container>

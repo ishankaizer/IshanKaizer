@@ -34,17 +34,25 @@ No component changes are needed for any of this.
 
 ## Case study shape
 
-`CaseStudy` in `src/types/index.ts` encodes the intended spine. Follow it:
+`CaseStudy` in `src/types/index.ts` encodes the intended spine, and the
+interface is deliberately locked to exactly this. Follow it:
 
 - `hook`, a one-line, three-second read: what it is, the role, the outcome
-- `overview`, timeline / team / platform / tools
+- `overview`, team / platform / tools (no timeline, see D22)
 - `problem`, the real user problem and the stakes, in **one** short paragraph
-- `contributions`, exactly what Ishan did versus the team, in **three** terse lines
 
-That is the whole shape. The deck carries the depth, so the written study is
-framing only and is kept deliberately short: see
-[`decisions.md`](./decisions.md#d18-the-deck-leads-the-case-study-the-written-story-follows-it).
-Resist growing it back. If a point is worth making, it belongs on a slide.
+That is the whole shape. No `contributions` / "my role" field, no `process`, no
+`decisions`, no `outcome`, no `reflection`, no timeline. The deck carries the
+depth, so the written study is framing only: see
+[D18](./decisions.md#d18-the-deck-leads-the-case-study-the-written-story-follows-it),
+[D21](./decisions.md#d21-the-written-case-study-is-framing-not-a-second-telling)
+and [D22](./decisions.md#d22-no-timeline-no-role-list-the-shape-is-locked).
+
+**Do not add a field back to `CaseStudy` or to the spec row on the page, even
+one that feels small (a date, a duration, a role bullet), without the owner
+explicitly asking for it.** These were cut on purpose, twice. If new case-study
+content shows up that does not fit `hook` / `overview` / `problem`, that is a
+signal to ask, not to extend the type.
 
 **Never fabricate metrics.** Honest qualitative outcomes are correct and
 preferred over invented numbers.

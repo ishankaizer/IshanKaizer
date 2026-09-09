@@ -35,20 +35,22 @@ export interface Decision {
 /**
  * The deck carries the depth. The written study is deliberately short: enough
  * to frame the work before the slides, never a second telling of it.
+ *
+ * This shape is intentionally fixed at four fields. Do not add fields back
+ * (process, decisions, outcome, reflection, contributions, a timeline) without
+ * an explicit request, they were removed on purpose. See
+ * docs/decisions.md#d21 and #d22.
  */
 export interface CaseStudy {
   /** One-line, 3-second read: what it is, the role, the outcome. */
   hook: string
   overview: {
-    timeline: string
     team: string
     platform: string
     tools: string[]
   }
   /** The real user problem and stakes. One short paragraph. */
   problem: string[]
-  /** Exactly what Ishan did, vs. the team. Three terse lines. */
-  contributions: string[]
 }
 
 export interface Project {

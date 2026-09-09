@@ -361,3 +361,21 @@ which is what the closing CTA already asks for.
 **If this is ever reversed,** the removed shape is in git history and
 `CaseMediaFrame` and `CountUp` still exist unused (see
 [`known-gaps.md`](./known-gaps.md)).
+
+## D22. No timeline, no role list: the shape is locked
+
+Following D21, the timeline (e.g. "12 weeks · 2023") and the "My role"
+contributions list were cut too. The spec row is now Role / Platform / Tools,
+and the written body is hook plus a single problem paragraph. Nothing else.
+
+This is now treated as a **locked interface**, not a snapshot of current
+content: `CaseStudy` in `src/types/index.ts` carries a comment saying so.
+`process`, `decisions`, `outcome`, `reflection` and `contributions` were
+removed once already (D21); a timeline field existed from the start and was
+removed here. The pattern of "add one more field, it's just one more block" is
+exactly how the page got long enough to need D18 and D21 in the first place.
+
+**Do not re-add a field to `CaseStudy`, or a new stat to the spec row, without
+an explicit request.** If it doesn't fit hook / overview (team, platform,
+tools) / one problem paragraph, it belongs in conversation or on a slide, not
+back on this page.
