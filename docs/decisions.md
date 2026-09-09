@@ -150,8 +150,10 @@ slide 01 is a hero plus an "About" block, slide 05 is a "Research" block
 carrying the real figures. **This is why they must not be chopped into a
 carousel or a thumbnail grid**; doing so would cut a designed page apart.
 
-The deck spans the full `Container` width (~1084px rendered), not a narrower
-reading column. It is the work, so it is not set smaller than the prose about it.
+The deck spans the full viewport width, edge to edge, not a narrower reading
+column and not even the page's own `Container`. It is the work, so nothing sets
+it smaller than the browser window. See D23 for how it went from
+`Container`-width to true full-bleed.
 
 ## D14. Static social tags in `index.html`
 
@@ -379,3 +381,23 @@ exactly how the page got long enough to need D18 and D21 in the first place.
 an explicit request.** If it doesn't fit hook / overview (team, platform,
 tools) / one problem paragraph, it belongs in conversation or on a slide, not
 back on this page.
+
+## D23. The deck is full-bleed: viewport edge to viewport edge
+
+D13 set the deck to the page's `Container` width (~1084px on a wide screen),
+wider than the reading column but still inset with air on both sides. The
+owner asked for the deck to feel immersive: the slides should run from the
+left edge of the screen to the right edge, with nothing framing them.
+
+`SlideGallery` now renders its eyebrow/heading inside `Container` as before,
+but the slide stack itself sits outside it in a `relative left-1/2 w-screen
+-translate-x-1/2` wrapper, the standard full-bleed-inside-a-centred-layout
+trick. `w-screen` can be a few pixels wider than the visible viewport when a
+vertical scrollbar is present; `overflow-x: hidden` on `html`/`body` (already
+in place, see the mobile-horizontal-scroll fix in the commit history) absorbs
+that instead of producing a scrollbar. Verified with no horizontal scroll at
+1280px, 1036px and 390px viewport widths.
+
+This applies everywhere `SlideGallery` is used: written case studies and the
+deck-only pages (Miscellaneous). The cover image above the deck, and the rest
+of the page, stay inside `Container`, only the deck itself breaks out.

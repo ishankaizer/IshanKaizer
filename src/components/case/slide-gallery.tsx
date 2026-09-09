@@ -9,9 +9,10 @@ interface SlideGalleryProps {
 }
 
 /**
- * The project's actual deck, shown in full at the page's own width. These
- * slides are authored as continuous designed sections, so they stack with zero
- * gap and keep their native aspect (see decisions.md D13). They lazy load, so
+ * The project's actual deck, shown edge-to-edge at full viewport width so the
+ * work reads immersively, not inset in a reading column (see decisions.md
+ * D13, D23). These slides are authored as continuous designed sections, so
+ * they stack with zero gap and keep their native aspect. They lazy load, so
  * the gallery stays cheap until scrolled into.
  */
 export function SlideGallery({
@@ -36,6 +37,8 @@ export function SlideGallery({
             presented.
           </p>
         </div>
+      </Container>
+      <div className="relative left-1/2 w-screen -translate-x-1/2">
         <div className="flex flex-col">
           {slides.map((src, i) => (
             <img
@@ -48,7 +51,7 @@ export function SlideGallery({
             />
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   )
 }
