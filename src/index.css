@@ -346,6 +346,38 @@
   transform: translate(0, 0);
 }
 
+/* Contact postcards: two scanned cards laid on the paper. The shadow follows
+   the torn edge (drop-shadow, not box-shadow) and a card straightens and lifts
+   when picked up. Transform only; the image is never dimmed or blurred. */
+.postcard {
+  --tilt: 0deg;
+  display: block;
+  margin: 0;
+  transform: rotate(var(--tilt));
+  transition: transform 0.6s cubic-bezier(0.16, 0.84, 0.3, 1);
+  will-change: transform;
+}
+.postcard img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 1px 1px rgba(35, 32, 26, 0.22))
+    drop-shadow(0 22px 34px rgba(35, 32, 26, 0.26));
+}
+.dark .postcard img {
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6))
+    drop-shadow(0 26px 40px rgba(0, 0, 0, 0.6));
+}
+.postcard--front {
+  --tilt: -2deg;
+}
+.postcard--back {
+  --tilt: 1.5deg;
+}
+.postcard:hover {
+  transform: rotate(0deg) translateY(-8px);
+}
+
 /* Case-study entrance: the title rises out of a mask, meta fades up, and the
    cover clips open with a slow settle. Compositor-driven, so it survives rAF
    throttling and can never leave content stuck hidden. */

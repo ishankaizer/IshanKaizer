@@ -51,8 +51,9 @@
 Non-negotiable, and cheap to maintain:
 
 - Decorative elements get `aria-hidden`. This includes the background field,
-  the cursor, the hero placeholder, the oversized footer signature, and the
-  duplicated marquee content.
+  the cursor, the hero placeholder, and the duplicated marquee content. The
+  footer postcards are content, not decoration: their `alt` carries the
+  handwritten text.
 - Interactive elements keep a visible focus ring (`:focus-visible` is styled
   globally). Do not remove outlines.
 - Tap targets stay at least 44px on touch.

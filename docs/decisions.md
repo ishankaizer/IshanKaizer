@@ -524,3 +524,29 @@ stacked into one ~9000px-tall canvas, not a single UI screen. Pushing quality
 or width down further stopped meaningfully reducing size well before it
 looked acceptable, so this was accepted as the cost of shipping the actual
 asset the owner wanted, not a mistake to "fix" later.
+
+## D29. Contact and footer are one postcard section
+
+Following the owner's direction: the Contact section (`sections/contact.tsx`,
+with its "why me" cards and reach card) and the old footer (tagline, socials,
+copyright, back to top, and the oversized "Kaizer" signature) were replaced by
+a single `Footer` that is also the `#contact` target. It lives in `RootLayout`,
+so every page ends on it; the `06` index is shown only on the homepage, where
+the number reflects real section order.
+
+The section is built around a real object: a scanned postcard the owner made,
+front (a photograph) and back (handwritten "Contact me", the email, "You,
+wherever you are"). The source PNG (`736x934`, no larger master exists; the PSD
+is the same size) is split into `public/contact/postcard-front.webp` and
+`postcard-back.webp` as **lossless** WebP with the scanned edge kept
+transparent, and each card is laid out at or below its native width so nothing
+is upscaled. The cards are never dimmed, blurred, or tinted: entrance is a
+transform-only slide (no opacity), the shadow is a `drop-shadow` that follows
+the torn edge, and hover straightens the slight tilt and lifts the card.
+
+Kept from the old footer: the tagline, the social links with handles, the
+copyright line, and back to top. Kept from the old contact section: the real
+`mailto` link, the Email me CTA, and Copy email, because the email inside the
+image is not selectable. Dropped on purpose: the "why me" cards and the
+"Kaizer" signature. The case-study CTA now links to `#contact` in-page rather
+than to `/#contact`, since the section is on the same page.

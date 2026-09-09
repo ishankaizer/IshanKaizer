@@ -8,7 +8,6 @@ import { Apart } from '@/sections/apart'
 import { Music } from '@/sections/music'
 import { Skills } from '@/sections/skills'
 import { LightBand } from '@/sections/light-band'
-import { Contact } from '@/sections/contact'
 
 export function HomePage() {
   return (
@@ -23,7 +22,6 @@ export function HomePage() {
       <Apart />
       <Skills />
       <LightBand />
-      <Contact />
     </>
   )
 }

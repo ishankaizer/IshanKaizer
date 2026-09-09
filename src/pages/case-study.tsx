@@ -152,10 +152,10 @@ function CaseStudyContent({ project }: { project: Project & { study: NonNullable
               </span>
             </p>
             <Button asChild variant="brand" size="lg">
-              <Link to="/#contact">
+              <a href="#contact">
                 Get in touch
                 <ArrowRight className="size-4" />
-              </Link>
+              </a>
             </Button>
           </Container>
         </section>
