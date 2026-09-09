@@ -124,5 +124,4 @@ export interface Philosophy {
   text: string
   /** Shown in the other card while this one is hovered. */
   image: { src: string; alt: string; width: number; height: number }
-  caption: string
 }

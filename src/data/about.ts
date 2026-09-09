@@ -2,8 +2,8 @@ import type { Philosophy, Tool } from '@/types'
 
 export const about = {
   /** Short, spacious About, in the owner's own voice. */
-  statement: 'Here for a good time, not a long time. Unless it’s at your company.',
-  sub: 'Industrial designer who ended up designing the screens and shipping the code too. Living life one beer at a time, in Bengaluru.',
+  statement: 'Here for a good time, not a long time. Unless it’s at YOUR company.',
+  sub: 'An industrial designer who just loves good design. Outside of that, you will find me having a beer, playing sports with my friends, or otherwise just living a fun, meaningful life in good company.',
 }
 
 /**
@@ -21,7 +21,6 @@ export const philosophies: Philosophy[] = [
       width: 900,
       height: 1200,
     },
-    caption: 'Me, reading your app',
   },
   {
     label: 'On objects',
@@ -33,7 +32,6 @@ export const philosophies: Philosophy[] = [
       width: 460,
       height: 460,
     },
-    caption: 'Me, in the workshop',
   },
 ]
 

@@ -102,7 +102,7 @@ export function Footer() {
       </div>
 
       <Container className="pb-8">
-        <div className="mt-12 grid gap-10 border-t border-hairline pt-10 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="mt-12 grid grid-cols-1 gap-10 border-t border-hairline pt-10 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-mute">Reach me</p>
             <a

@@ -21,10 +21,8 @@ export function Apart() {
         eyebrow="How I think"
         title={
           <>
-            Two mediums,{' '}
-            <span className="font-serif font-normal normal-case italic text-brand">
-              one instinct.
-            </span>
+            What I{' '}
+            <span className="font-serif font-normal normal-case italic text-brand">do.</span>
           </>
         }
         description="Hover one to see me at the other."
@@ -78,9 +76,6 @@ export function Apart() {
                     draggable={false}
                     className="size-full object-cover"
                   />
-                  <figcaption className="absolute bottom-4 left-4 rounded-md bg-paper px-3 py-1.5 font-mono text-xs uppercase tracking-[0.14em] text-ink">
-                    {other.caption}
-                  </figcaption>
                 </figure>
               </article>
             </Reveal>
