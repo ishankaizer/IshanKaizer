@@ -80,6 +80,7 @@ const SLIDE_COUNTS: Record<string, number> = {
   levelstretch: 7,
   miscellaneous: 11,
   materia: 13,
+  'soul-ai': 34,
 }
 
 function slidePaths(slug: string): string[] {
