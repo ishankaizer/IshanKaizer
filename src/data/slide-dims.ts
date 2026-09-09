@@ -47,10 +47,6 @@ export const slideDims: Record<string, [number, number][]> = {
     ],
     [
       1500,
-      3312
-    ],
-    [
-      1500,
       957
     ],
     [
