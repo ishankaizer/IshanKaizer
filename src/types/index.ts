@@ -53,13 +53,17 @@ export interface CaseStudy {
   problem: string[]
 }
 
+/**
+ * No date field, deliberately: dates on individual projects (a year, a
+ * timeline) date the portfolio itself and don't help a hiring manager. Do not
+ * add one back without an explicit request. See docs/decisions.md#d24.
+ */
 export interface Project {
   slug: string
   title: string
   /** Outcome-first one-liner for the card and hero. */
   tagline: string
   disciplines: Discipline[]
-  year: string
   role: string
   /** Shown in the selected-work grid on the homepage. */
   featured: boolean

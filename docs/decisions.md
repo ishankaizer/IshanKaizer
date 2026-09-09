@@ -401,3 +401,21 @@ that instead of producing a scrollbar. Verified with no horizontal scroll at
 This applies everywhere `SlideGallery` is used: written case studies and the
 deck-only pages (Miscellaneous). The cover image above the deck, and the rest
 of the page, stay inside `Container`, only the deck itself breaks out.
+
+## D24. No dates on individual projects
+
+Following D21/D22 (which cut the case study's timeline), the project `year`
+field was removed too. It showed as "· 2024" next to the discipline badges on
+every case study header. The owner's call: it doesn't help, it only dates the
+portfolio itself as time passes.
+
+`year` is removed from the `Project` type entirely, not just hidden from the
+page, so it can't quietly come back through a data entry. The type carries a
+comment saying so. Order on the homepage's Selected Work grid was never driven
+by `year` (it's array order in `projects.ts`), so removing it changes nothing
+structural.
+
+**Do not add a date, year, or timeline back to `Project` or `CaseStudy`
+without an explicit request.** This is the third time a date-shaped field has
+been cut (D22's timeline, this one); treat "should this show a date" as
+answered.

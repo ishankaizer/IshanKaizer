@@ -79,7 +79,6 @@ function CaseStudyContent({ project }: { project: Project & { study: NonNullable
               {project.disciplines.map((d) => (
                 <Badge key={d}>{d}</Badge>
               ))}
-              <span className="font-mono text-xs text-ink-mute">&middot; {project.year}</span>
             </div>
 
             <h1 className="cs-title mt-5 block overflow-hidden pb-[0.08em] text-balance font-display font-black uppercase leading-[0.9] tracking-tight text-ink">
@@ -224,7 +223,6 @@ export function CaseStudyPage() {
                 {project.disciplines.map((d) => (
                   <Badge key={d}>{d}</Badge>
                 ))}
-                <span className="font-mono text-xs text-ink-mute">&middot; {project.year}</span>
               </div>
               <h1 className="cs-title mt-5 block overflow-hidden pb-[0.08em] text-balance font-display font-black uppercase leading-[0.9] tracking-tight text-ink">
                 <span className="cs-rise block" style={{ animationDelay: '0.1s' }}>
