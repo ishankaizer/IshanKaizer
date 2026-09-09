@@ -1,6 +1,7 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { Container } from '@/components/common/container'
+import { Intro } from '@/components/common/intro'
 import { site } from '@/data/site'
 import { cn } from '@/lib/utils'
 
@@ -14,31 +15,29 @@ const disciplines = [
   'Frontend',
 ]
 
-const HOLD = 1500 // how long the centred name is held before it moves
-const MOVE = 1300 // how long the slot-into-position glide takes
-const EASE = 'cubic-bezier(0.76, 0, 0.24, 1)'
+/** The see-through window of /hero/polaroid.webp, in percent of the card. */
+const WINDOW = { left: '3.3%', top: '15.55%', width: '90.7%', height: '69.3%' }
+
+/** A few stickers from the desk (section 06) peeking around the card. */
+const stickers = [
+  { src: '/likes/stickers/star.webp', alt: '', w: 'w-16 lg:w-24', pos: '-left-6 -top-6 lg:-left-12 lg:-top-8', r: -14, drift: 7 },
+  { src: '/likes/stickers/worm-03.webp', alt: '', w: 'w-24 lg:w-32', pos: '-bottom-4 -right-6 lg:-right-14', r: 12, drift: 8.5 },
+  { src: '/likes/stickers/tiger-small.webp', alt: '', w: 'w-16 lg:w-24', pos: 'bottom-20 -left-8 lg:-left-16', r: 9, drift: 6.5 },
+]
 
 export function Hero() {
   const reduce = useReducedMotion()
-  const nameRef = useRef<HTMLHeadingElement>(null)
-  const ishanRef = useRef<HTMLSpanElement>(null)
-  const kaizerRef = useRef<HTMLSpanElement>(null)
   const [intro, setIntro] = useState(false)
   const [ready, setReady] = useState(false)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let play = true
     try {
       play = sessionStorage.getItem('introPlayed') !== 'true'
     } catch {
       play = true
     }
-    const h1 = nameRef.current
-    const w1 = ishanRef.current
-    const w2 = kaizerRef.current
-
-    // No intro: reveal the hero content shortly after mount.
-    if (!play || reduce || !h1 || !w1 || !w2) {
+    if (!play || reduce) {
       try {
         sessionStorage.setItem('introPlayed', 'true')
       } catch {
@@ -47,114 +46,29 @@ export function Hero() {
       const t = window.setTimeout(() => setReady(true), 60)
       return () => window.clearTimeout(t)
     }
-
     setIntro(true)
-    document.body.style.overflow = 'hidden'
-    h1.style.position = 'relative'
-    h1.style.zIndex = '210'
-
-    // Measure the true resting rects of each word (two-line layout).
-    w1.style.transition = 'none'
-    w2.style.transition = 'none'
-    w1.style.transform = 'none'
-    w2.style.transform = 'none'
-    const r1 = w1.getBoundingClientRect()
-    const r2 = w2.getBoundingClientRect()
-
-    // Build a single centred line and compute each word's transform to it.
-    const fontSize = parseFloat(getComputedStyle(h1).fontSize) || r1.height
-    const gap = fontSize * 0.32
-    const vw = window.innerWidth
-    const vh = window.innerHeight
-    const oneLine = r1.width + gap + r2.width
-    const s = Math.min(1, (vw * 0.9) / oneLine)
-    const total = (r1.width + gap + r2.width) * s
-    const left = (vw - total) / 2
-    const cy = vh / 2
-    const cx1 = left + (r1.width * s) / 2
-    const cx2 = left + (r1.width + gap) * s + (r2.width * s) / 2
-    const rc1x = r1.left + r1.width / 2
-    const rc1y = r1.top + r1.height / 2
-    const rc2x = r2.left + r2.width / 2
-    const rc2y = r2.top + r2.height / 2
-
-    for (const w of [w1, w2]) {
-      w.style.transformOrigin = 'center'
-      w.style.willChange = 'transform'
-    }
-    w1.style.transform = `translate(${cx1 - rc1x}px, ${cy - rc1y}px) scale(${s})`
-    w2.style.transform = `translate(${cx2 - rc2x}px, ${cy - rc2y}px) scale(${s})`
-
-    const t1 = window.setTimeout(() => {
-      w1.style.transition = `transform ${MOVE}ms ${EASE}`
-      w2.style.transition = `transform ${MOVE}ms ${EASE} 90ms`
-      w1.style.transform = 'none'
-      w2.style.transform = 'none'
-      setReady(true)
-    }, HOLD)
-    const t2 = window.setTimeout(() => {
-      for (const w of [w1, w2]) {
-        w.style.transition = ''
-        w.style.transform = ''
-        w.style.transformOrigin = ''
-        w.style.willChange = ''
-      }
-      h1.style.position = ''
-      h1.style.zIndex = ''
-      document.body.style.overflow = ''
-      try {
-        sessionStorage.setItem('introPlayed', 'true')
-      } catch {
-        /* ignore */
-      }
-      setIntro(false)
-    }, HOLD + MOVE + 250)
-
-    return () => {
-      window.clearTimeout(t1)
-      window.clearTimeout(t2)
-      document.body.style.overflow = ''
-    }
   }, [reduce])
+
+  const finish = () => {
+    try {
+      sessionStorage.setItem('introPlayed', 'true')
+    } catch {
+      /* ignore */
+    }
+    setReady(true)
+    setIntro(false)
+  }
 
   return (
     <section
       id="hero"
       data-hero-ready={ready ? 'true' : 'false'}
-      className={cn(
-        'relative overflow-hidden border-b border-hairline',
-        intro && 'hero-intro',
-      )}
+      className={cn('relative overflow-hidden border-b border-hairline', intro && 'hero-intro')}
     >
-      {intro && (
-        <div
-          aria-hidden
-          className={cn(
-            'fixed inset-0 z-[200] bg-paper transition-opacity duration-1000 ease-out',
-            ready ? 'opacity-0' : 'opacity-100',
-          )}
-        />
-      )}
-
-      {/* Mobile/tablet portrait: right-anchored, faded behind the text, masked
-          into the paper so it never competes with the name. Desktop uses the
-          framed Fig. 01 panel instead (see below). */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 w-[60%] lg:hidden"
-      >
-        <img
-          src="/hero/fig-01.jpg"
-          alt=""
-          loading="eager"
-          decoding="async"
-          className="size-full object-cover object-top opacity-[0.4] grayscale [mask-image:linear-gradient(to_left,black_25%,transparent_85%)] [-webkit-mask-image:linear-gradient(to_left,black_25%,transparent_85%)]"
-        />
-      </div>
+      {intro && <Intro onReveal={() => setReady(true)} onDone={finish} />}
 
       <Container className="relative">
-        <div className="grid min-h-[calc(100svh-4rem)] items-center gap-12 py-20 lg:grid-cols-[1.1fr_0.9fr]">
-          {/* Left: identity, nothing more. */}
+        <div className="grid min-h-[calc(100svh-4rem)] items-center gap-14 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
           <div>
             <p
               className="hero-stagger font-mono text-xs uppercase tracking-[0.2em] text-ink-mute"
@@ -163,16 +77,9 @@ export function Hero() {
               {site.location}
             </p>
 
-            <h1
-              ref={nameRef}
-              className="mt-6 font-display text-[clamp(3rem,11vw,7.5rem)] font-black uppercase leading-[0.86] tracking-[-0.03em] text-ink"
-            >
-              <span ref={ishanRef} className="block w-fit">
-                Ishan
-              </span>
-              <span ref={kaizerRef} className="block w-fit text-ink-mute">
-                Kaizer
-              </span>
+            <h1 className="hero-stagger mt-6 font-display text-[clamp(3rem,11vw,7.5rem)] font-black uppercase leading-[0.86] tracking-[-0.03em] text-ink">
+              <span className="block">Ishan</span>
+              <span className="block text-ink-mute">Kaizer</span>
             </h1>
 
             <p
@@ -212,26 +119,59 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right: portrait, an industrial-design nod. Desktop only. */}
+          {/* The photo, pinned up like a print: a worn 1979 card with his
+              picture in the window, a strip of tape, a few stickers from the
+              desk. Colour comes in on hover. */}
           <div
-            className="hero-stagger hidden lg:block"
+            className="hero-stagger relative mx-auto w-full max-w-[400px] px-6 sm:max-w-[460px] lg:max-w-[560px] lg:px-4"
             style={{ transitionDelay: '0.34s' }}
           >
-            <div className="draft-grid relative aspect-square w-full overflow-hidden rounded-lg border border-hairline">
-              <span className="absolute left-4 top-4 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-ink-mute">
-                Fig. 01
-              </span>
+            <div className="polaroid group relative">
+              <div className="absolute overflow-hidden bg-[#141210]" style={WINDOW}>
+                <img
+                  src="/hero/fig-01.jpg"
+                  alt="Ishan Kaizer"
+                  width={1439}
+                  height={1892}
+                  loading="eager"
+                  decoding="async"
+                  className="size-full object-cover object-[50%_38%] grayscale transition-[filter] duration-700 group-hover:grayscale-0"
+                />
+              </div>
               <img
-                src="/hero/fig-01.jpg"
-                alt="Ishan Kaizer"
+                src="/hero/polaroid.webp"
+                alt=""
+                width={818}
+                height={1074}
                 loading="eager"
                 decoding="async"
-                className="size-full object-cover grayscale transition-[filter] duration-500 hover:grayscale-0"
+                draggable={false}
+                className="relative block h-auto w-full select-none"
               />
-              <span className="absolute bottom-4 right-4 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-brand">
-                object &middot; interface &middot; code
+              <span className="absolute bottom-[5%] left-[6.5%] font-mono text-[0.6rem] uppercase tracking-[0.18em] text-[#3a352c] sm:text-[0.68rem]">
+                fig. 01 &middot; {site.location}
               </span>
+              <span aria-hidden className="polaroid-tape" />
             </div>
+
+            {stickers.map((s) => (
+              <span
+                key={s.src}
+                aria-hidden
+                className={cn('sticker pointer-events-none absolute', s.w, s.pos)}
+                style={{ rotate: `${s.r}deg` }}
+              >
+                <img
+                  src={s.src}
+                  alt=""
+                  loading="eager"
+                  decoding="async"
+                  draggable={false}
+                  className="block h-auto w-full"
+                  style={reduce ? undefined : { animationDuration: `${s.drift}s`, animationDelay: `${-s.drift / 2}s` }}
+                />
+              </span>
+            ))}
           </div>
         </div>
       </Container>

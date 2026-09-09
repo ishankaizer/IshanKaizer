@@ -78,26 +78,42 @@ The signature primitive: a part translating precisely into position from a given
 direction (`up`, `down`, `left`, `right`) with mechanical easing. Same trigger
 and reduced-motion policy as `Reveal`.
 
-### Hero intro (`sections/hero.tsx`)
+### Intro: the wrong portfolio shatters (`components/common/intro.tsx`)
 
-The first-visit moment. The name appears centred on a full-screen panel as a
-single line, holds, then the two words **slot apart into the two-line hero**
-while the panel dissolves and the rest of the hero rises in.
+The first-visit moment. The owner's old maximalist "PORTFOLIO" collage opens
+on a dark, scanlined screen as if someone launched the wrong file
+(`opening portfolio_v1_FINAL(2).png_`), the caption admits `wrong one.`, a
+flash, and the screen shatters old-Windows style: shards thrown away from an
+impact point fall off the bottom on a gravity curve while the real hero rises
+in underneath.
 
-- Runs **once per browser session**, gated by `sessionStorage.introPlayed`.
-  A refresh will not replay it; a new tab will.
-- Implemented as a **per-word FLIP**: measure each word's resting rect, compute
-  the transform that places both on one centred line (scaling down only if the
-  line would not fit), apply it, then transition back to `none`. Because the
-  words return to `transform: none`, they land pixel exact by construction.
-- Driven by CSS transitions plus `setTimeout`, deliberately **not** rAF.
-- Timing: `HOLD = 1500ms`, `MOVE = 1300ms`, second word staggered by 90ms.
-  These are the tuning dials.
-- The whole hero content (`.hero-stagger`) is visible by default; it is only
-  hidden while the overlay is up.
+- Runs **once per browser session**, gated by `sessionStorage.introPlayed`,
+  and only on the homepage because only `Hero` mounts it.
+- **The hero renders underneath from the start**, so the site loads while the
+  collage is up. The overlay root is transparent; only the screen panel is
+  dark, and it is unmounted the instant the shards start.
+- Shards are full-viewport copies of the collage (`background-size: cover`)
+  clipped with `clip-path` to a **jittered grid whose neighbours share corner
+  points**, so there are no gaps. Fling direction, spin and delay come from a
+  seeded PRNG and are passed as `--dx` / `--rot` / `animation-delay`, so one
+  CSS keyframe drives all 24.
+- Every phase change is a hard `setTimeout` (`HOLD = 1500`, `WRONG_AT = 1000`,
+  `FALL = 1050`, `LOAD_CAP = 1800`); the image only gates the start of the
+  hold, capped at `LOAD_CAP`, and the overlay unmounts on a timer regardless.
+- `.hero-stagger` content is visible by default and only hidden while
+  `.hero-intro[data-hero-ready='false']`; `ready` flips as the shards begin.
+- Reduced motion skips the whole thing and lands on the resting hero.
 
-Only the homepage has an intro, because only `Hero` mounts it. Landing directly
-on a case study correctly shows no intro.
+The earlier per-word FLIP name intro was retired with this, see
+[`decisions.md`](./decisions.md#d33-the-intro-is-the-wrong-portfolio-being-thrown-away).
+
+### Hero print (`sections/hero.tsx`)
+
+The portrait sits in the see-through window of a scanned 1979 photo card
+(`/hero/polaroid.webp`, black window made transparent, scratches kept as an
+overlay), tilted `-3deg` with a strip of tape and three stickers from the desk.
+Hover straightens and lifts the card (`.polaroid`, transform only) and brings
+the photo from grayscale to colour. The stickers reuse `.sticker` drift.
 
 ### Case-study entrance (`cs-rise`, `cs-fade`, `cs-cover`)
 

@@ -65,8 +65,8 @@ Non-negotiable, and cheap to maintain:
 ## State and effects
 
 - No global state library. Local state, plus one context for theme.
-- `useLayoutEffect` is used where a measurement must happen before paint (the
-  hero FLIP). This is safe because there is no SSR.
+- `useLayoutEffect` is fine where a measurement must happen before paint (the
+  retired hero FLIP used it). This is safe because there is no SSR.
 - Always clean up: clear timeouts, cancel rAF, remove listeners, restore
   `document.body.style.overflow`. Scroll locks in particular must be released in
   the cleanup, not only on the happy path.

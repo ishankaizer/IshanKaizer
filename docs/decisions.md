@@ -103,6 +103,9 @@ blur. Opacity is safe for vestibular sensitivity; movement is not.
 
 ## D11. The intro plays once per session, and only on the homepage
 
+**The name-slot FLIP described here is superseded by D33**; the session gate and
+the homepage-only rule still stand.
+
 `sessionStorage.introPlayed` gates it. A returning visitor is not forced through
 it again; a new tab replays it. It lives inside `Hero`, so landing directly on a
 case study correctly has no intro.
@@ -622,3 +625,36 @@ Following the owner's direction after seeing D29 to D31 live:
 - **Contact** is titled "Need me? Here's where to find me." The postcards get
   a 1440px sheet of their own (so they sit near native size) and overlap on
   desktop like a pile, and the back card is a `mailto:` link with a mono hint.
+
+## D33. The intro is the wrong portfolio being thrown away
+
+Following the owner's direction: the name-slot FLIP intro (D11) is replaced.
+On first visit per session the owner's old maximalist "PORTFOLIO" collage
+(`public/intro/portfolio-v1.webp`, 1920px, ~260KB, preloaded from
+`index.html`) opens on a dark scanlined screen with a mono caption
+`opening portfolio_v1_FINAL(2).png_`; a second later the caption says
+`wrong one.`, the screen flashes and shatters old-Windows style into 24 shards
+that fall away, and the real hero rises in underneath. The narrative is the
+site's own story: the loud version got opened by mistake and chucked out for
+the simplified one.
+
+Why this shape, and not a crumple: a paper crumple needs either a video or a
+WebGL cloth sim; the shatter is pure CSS (`clip-path` polygons on full-screen
+copies of the image, one keyframe, per-shard custom properties) and reads
+instantly as "old computer". It also gives the hero time to load: the hero
+mounts under the overlay from the first frame, so the intro doubles as the
+loading screen the owner asked for.
+
+Timings (`intro.tsx`): image-gated start capped at 1.8s, hold 1.5s with the
+caption flip at 1.0s, shards staggered by distance from the impact point (up
+to ~0.3s) on a 0.8s gravity curve, unmount at hold + 1.2s. Every phase is a
+`setTimeout` (D8). Reduced motion skips it entirely. The dead `Preloader`
+component and its CSS were removed in the same change.
+
+**Hero print.** The desktop "Fig. 01" panel and the faded mobile background
+photo are replaced by one big framed print on every size: the photo sits in
+the see-through window of the owner's scanned 1979 photo card (window made
+transparent, scratches kept as an overlay so the print reads as worn), tilted,
+taped at the top, with three stickers from section 06 peeking around it.
+This also removed the FLIP's mobile bug where the one-line name overflowed
+the viewport on first load.

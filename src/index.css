@@ -608,38 +608,97 @@
   animation: route-mask-reveal 0.5s cubic-bezier(0.16, 0.84, 0.3, 1) both;
 }
 
-/* First-load intro overlay: name reveal, then a compositor-driven swipe up. */
-.preloader {
-  transform: translateY(0);
-  transition: transform 0.85s cubic-bezier(0.16, 0.84, 0.3, 1);
+/* First-load intro: the wrong portfolio opens on an old screen, then shatters.
+   The screen is a dark panel with the collage; shards are full-viewport copies
+   clipped to a jittered grid that share corner points, thrown away from the
+   impact point on a gravity curve. Every phase is timer-driven, see intro.tsx. */
+.intro-screen,
+.intro-shard {
+  background-color: #0e0d0b;
+  background-size: cover;
+  background-position: center;
+}
+.intro-screen {
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+}
+.intro-screen.is-on {
+  opacity: 1;
+}
+.intro-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 2px, transparent 2px 4px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+}
+.intro-shard {
   will-change: transform;
+  animation: intro-shard-fall 0.8s cubic-bezier(0.5, 0, 0.95, 0.4) both;
 }
-.preloader-leaving {
-  transform: translateY(-100%);
-}
-.preloader-word {
-  animation: preloader-word-in 0.7s cubic-bezier(0.16, 0.84, 0.3, 1) 0.1s both;
-}
-.preloader-word-2 {
-  animation-delay: 0.24s;
-}
-@keyframes preloader-word-in {
+@keyframes intro-shard-fall {
   from {
-    transform: translateY(115%);
+    transform: none;
   }
   to {
-    transform: translateY(0);
+    transform: translate3d(var(--dx, 0), 130vh, 0) rotate(var(--rot, 0deg));
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .preloader {
-    display: none;
+.intro-flash {
+  animation: intro-flash 0.4s ease-out both;
+}
+@keyframes intro-flash {
+  from {
+    opacity: 0.6;
   }
+  to {
+    opacity: 0;
+  }
+}
+.intro-cursor {
+  animation: intro-blink 1s steps(2, start) infinite;
+}
+@keyframes intro-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* Hero print: the card tilts like something pinned up, straightens when you
+   reach for it, and carries the shadow of the whole composite (photo + frame). */
+.polaroid {
+  --tilt: -3deg;
+  transform: rotate(var(--tilt));
+  transition: transform 0.6s cubic-bezier(0.16, 0.84, 0.3, 1);
+  will-change: transform;
+  filter: drop-shadow(0 1px 1px rgba(35, 32, 26, 0.25))
+    drop-shadow(0 24px 36px rgba(35, 32, 26, 0.3));
+}
+.dark .polaroid {
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6))
+    drop-shadow(0 26px 40px rgba(0, 0, 0, 0.6));
+}
+.polaroid:hover {
+  transform: rotate(0deg) translateY(-6px);
+}
+.polaroid-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 34%;
+  height: 30px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(255, 252, 240, 0.5);
+  border: 1px solid rgba(35, 32, 26, 0.12);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  z-index: 2;
 }
 
 /* Hero content reveal: visible by default (so it never depends on JS to
    appear); only hidden while the intro overlay is actively covering it, then
-   it rises in once the name has settled. */
+   it rises in once the shards start to fall. */
 .hero-stagger {
   transition:
     opacity 0.7s cubic-bezier(0.16, 0.84, 0.3, 1),

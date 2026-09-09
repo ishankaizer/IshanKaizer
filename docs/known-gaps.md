@@ -7,8 +7,7 @@ touching the surrounding code. None of them break the site today.
 
 | Item | Status |
 |---|---|
-| `src/components/layout/preloader.tsx` | **Unused.** Zero references. Superseded by the hero intro (see [`decisions.md`](./decisions.md#d11-the-intro-plays-once-per-session-and-only-on-the-homepage)). Safe to delete along with the `.preloader*` CSS. |
-| `.preloader`, `.preloader-word`, `.preloader-word-2`, `@keyframes preloader-word-in` in `index.css` | Only consumed by the dead component above. |
+| `.hero-float` and `@keyframes hero-float` in `index.css` | **Unused** since the hero placeholder was replaced by the framed print (D33). |
 | `.page-enter` and `@keyframes page-enter` in `index.css` | **Unused.** The page-wide entrance blur was removed because its `filter` created a stacking context that trapped the hero intro's z-index, and the intro replaced it as the load moment. |
 | `.draft-grid-strong` in `index.css` | Unused. `.draft-grid` is used. |
 | `.no-scrollbar` in `index.css` | Unused. |
