@@ -87,15 +87,35 @@ export interface ExperienceRole {
 
 export interface Tool {
   label: string
-  note: string
-  /** How central the tool is to the practice; sets its display scale. */
-  scale: 'lg' | 'md' | 'sm'
+  /** Cut-out folder icon under /tools, with its intrinsic size. */
+  icon: string
+  width: number
+  height: number
 }
 
-export interface ToolGroup {
-  /** Capability the tools serve, e.g. "Interface". */
+export interface Wallpaper {
+  src: string
   label: string
-  tools: Tool[]
+}
+
+export interface Sticker {
+  id: string
+  src: string
+  alt: string
+  /** `photo` keeps its rectangle and gets a print border; `cutout` is die-cut. */
+  kind: 'cutout' | 'photo'
+  /** Intrinsic pixel size of the file. */
+  iw: number
+  ih: number
+  /** Display width in px at desktop scale. */
+  w: number
+  /** Starting position, percent of the board, top-left corner. */
+  x: number
+  y: number
+  /** Resting tilt in degrees. */
+  r: number
+  /** Idle drift period in seconds. */
+  drift: number
 }
 
 export interface Philosophy {

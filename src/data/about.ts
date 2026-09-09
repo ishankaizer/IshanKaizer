@@ -1,4 +1,4 @@
-import type { Philosophy, ToolGroup } from '@/types'
+import type { Philosophy, Tool } from '@/types'
 
 export const about = {
   /** Short, spacious About. Kept deliberately minimal. */
@@ -26,46 +26,19 @@ export const hobbies = [
 ]
 
 /**
- * The toolkit as a type specimen: grouped by the capability the tools serve,
- * with `scale` encoding how central each tool is to the practice. Scale is a
- * real measurement (what gets reached for most), not decoration; retune it
- * here, not in the component.
+ * The toolkit, in order of reach. Each tool owns one of the owner's
+ * illustrated folder icons (cut out with `scripts/cutout.py` into /tools).
  */
-export const toolGroups: ToolGroup[] = [
-  {
-    label: 'Interface',
-    tools: [
-      { label: 'Figma', note: 'UX/UI, prototyping, systems', scale: 'md' },
-    ],
-  },
-  {
-    label: 'Form & CAD',
-    tools: [
-      { label: 'Blender', note: '3D modeling, render', scale: 'md' },
-      { label: 'Fusion 360', note: 'CAD, mechanical form', scale: 'md' },
-    ],
-  },
-  {
-    label: 'Image & Print',
-    tools: [
-      { label: 'Photoshop', note: 'Compositing, product viz', scale: 'lg' },
-      { label: 'Illustrator', note: 'Vector, iconography', scale: 'md' },
-      { label: 'CorelDRAW', note: 'Print production', scale: 'sm' },
-    ],
-  },
-  {
-    label: 'Motion',
-    tools: [
-      { label: 'After Effects', note: 'Motion graphics', scale: 'md' },
-      { label: 'Premiere', note: 'Edit, grade', scale: 'sm' },
-    ],
-  },
-  {
-    label: 'Automation',
-    tools: [
-      { label: 'Python', note: 'Scripts, macros', scale: 'md' },
-      { label: 'Claude Code', note: 'AI-assisted development', scale: 'sm' },
-      { label: 'ChatGPT', note: 'Research, ideation', scale: 'sm' },
-    ],
-  },
+export const tools: Tool[] = [
+  { label: 'Figma', icon: '/tools/figma.webp', width: 320, height: 266 },
+  { label: 'Photoshop', icon: '/tools/photoshop.webp', width: 320, height: 265 },
+  { label: 'Blender', icon: '/tools/blender.webp', width: 320, height: 266 },
+  { label: 'Fusion 360', icon: '/tools/fusion-360.webp', width: 320, height: 265 },
+  { label: 'Illustrator', icon: '/tools/illustrator.webp', width: 320, height: 265 },
+  { label: 'After Effects', icon: '/tools/after-effects.webp', width: 320, height: 266 },
+  { label: 'Premiere', icon: '/tools/premiere.webp', width: 320, height: 265 },
+  { label: 'Python', icon: '/tools/python.webp', width: 320, height: 266 },
+  { label: 'CorelDRAW', icon: '/tools/coreldraw.webp', width: 320, height: 266 },
+  { label: 'Claude Code', icon: '/tools/claude-code.webp', width: 320, height: 266 },
+  { label: 'ChatGPT', icon: '/tools/chatgpt.webp', width: 320, height: 267 },
 ]

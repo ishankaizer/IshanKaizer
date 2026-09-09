@@ -223,6 +223,8 @@ has since been cut back to framing only.
 
 ## D19. The toolkit is a type specimen, not a card grid
 
+**Superseded by D31.** Kept for the reasoning and the rejected paths.
+
 The 3-column grid of abbr-chip cards was replaced with five capability lines
 (Interface, Form & CAD, Image & Print, Motion, Automation), each a flowing
 baseline of tool names set in Archivo black. **Scale encodes reach**: how
@@ -297,6 +299,8 @@ Robustness reasoning, in the spirit of D8:
   grid layer is `aria-hidden` and decorative.
 
 ## D20. The light band: a cursor-lit 3D interlude
+
+**Superseded by D30.** The band and `light-object.tsx` were removed.
 
 Prompted by a Spline community scene (a form in darkness, revealed by a
 cursor-light with edge glow). The owner wanted "something beautiful in the
@@ -550,3 +554,46 @@ copyright line, and back to top. Kept from the old contact section: the real
 image is not selectable. Dropped on purpose: the "why me" cards and the
 "Kaizer" signature. The case-study CTA now links to `#contact` in-page rather
 than to `/#contact`, since the section is on the same page.
+
+## D30. Things I like: a draggable sticker desk replaces the light band
+
+Following the owner's direction: the cursor-lit WebGL cube (D20) was scrapped
+and its slot became a full section about what the owner likes, numbered 06
+(Contact moved to 07). `sections/likes.tsx` is a full-bleed desk: a wallpaper
+the visitor can cycle (three for now, the "Bliss with a cow" image is the
+default and always sits underneath the others, so switching never blanks the
+band), and a pile of die-cut stickers and photos the visitor can drag around.
+There is deliberately almost no copy: a paper note with the title and "drag
+the stickers around", and the wallpaper switcher.
+
+Assets came in as JPEGs with flat backgrounds. `scripts/cutout.py` floods the
+border colour out (so enclosed light areas inside a sticker survive, like a
+real die-cut), de-fringes the edge, trims, and writes a 480px WebP; `--mode
+rembg` handles patterned or low-contrast backgrounds; `--split` breaks a sheet
+into pieces (the sticker sheet became seven stickers, the worms five). The four
+photographs were dropped in as-is with a print border. Sticker widths, resting
+positions, tilt and drift period live in `data/likes.ts`, generated once from a
+seeded jittered grid and then hand-editable.
+
+Robustness: stickers rest at their data position with no entrance fade; drift
+and drag are transform-only; the wallpapers stack so the section always has a
+full image behind it. Sizes scale down on small screens so enough wallpaper
+stays exposed to scroll past the section on a phone.
+
+## D31. The toolkit is a row of folders
+
+Following the owner's direction: the exploded type specimen (D19) had too much
+text and too much scrolling. It was replaced by eleven of the owner's
+illustrated folder icons (cut out with `scripts/cutout.py` into `/tools`), one
+per tool, laid out as a centred wrapping row with only the tool name as a mono
+file label underneath. The 190vh scroll pin, the capability group labels, the
+per-tool notes and the section description were all cut. Order still encodes
+reach; the `scale` and `note` fields were removed from `Tool` along with
+`ToolGroup`.
+
+Which folder belongs to which tool is an owner's call and lives in
+`data/about.ts`. The first pass used the obvious cues (orange folder for
+Blender, green for ChatGPT, the caterpillar for Python, the patchwork for
+Figma, the pixel "Fragile" for Photoshop, the running dogs for Premiere, the
+starry horse for After Effects, the monkey for Claude Code); reassign by
+editing the `icon` paths, no component change needed.

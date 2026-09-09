@@ -127,46 +127,30 @@ The Selected Work hover reveal. Hovering a row lights it, recedes its siblings t
   (9999) and the route mask (290), and is `pointer-events: none` so it never eats
   a click.
 
-### Toolkit exploded view (`sections/skills.tsx`)
+### Toolkit folders (`sections/skills.tsx`)
 
-The one scroll-scrubbed set piece. On desktop the tool names open strewn across
-the sheet over a faint `.draft-grid`, and scroll drives each part into its seat
-in sequence. Implemented with `useScroll` + `useTransform` per part, each with
-its own settle window, eased on the mechanical curve.
+Each tool is an illustrated folder icon that enters with the shared `Reveal`
+and lifts on hover (`.folder`, transform only). No scroll pin, no scrub: the
+earlier exploded type specimen (D19) was retired for being too much text and
+scrolling, see
+[`decisions.md`](./decisions.md#d31-the-toolkit-is-a-row-of-folders).
 
-- **Poses are derived, not hand-scattered** (`openPose`): rows stand off to
-  alternating sides and their parts fan along the row baseline, so the section
-  reads as one concertina closing rather than confetti. See
-  [`decisions.md`](./decisions.md#d19-the-toolkit-is-a-type-specimen-not-a-card-grid).
-- **Timing keeps ~3 parts moving at once** (`SPAN = 0.2` over a derived
-  stagger); the last part lands at 0.75 so the specimen holds before release.
-  The scroll offset `['start start', 'end end']` maps progress onto the pin.
-- **The grid is a constant faint layer** (`opacity-40`), not scroll-driven:
-  driving its opacity off progress made framer render it non-monotonically.
-- **The resting layout is the natural flow layout.** The open pose is transform
-  only; content opacity never animates. JS dead or rAF stalled leaves posed but
-  fully legible type, never hidden content.
-- Small screens (max-width 640px) and reduced motion skip the stage entirely
-  and render the assembled specimen statically.
-- No entrance triggers, so it cannot suffer the stuck-invisible failure of
-  rule 5; progress is a pure function of scroll position.
+### Things I like (`sections/likes.tsx`)
 
-### Light object (`components/common/light-object.tsx`)
+A wallpaper desk with draggable stickers. See
+[`decisions.md`](./decisions.md#d30-things-i-like-a-draggable-sticker-desk-replaces-the-light-band).
 
-The cursor-lit 3D form in the dark `LightBand` interlude. A rounded graphite box
-raymarched in a single raw WebGL fragment shader (no dependency); the pointer is
-a moving light, and the surfaces and edges nearest it catch a diffuse highlight
-plus a `--brand` rim glow. See
-[`decisions.md`](./decisions.md#d20-the-light-band-a-cursor-lit-3d-interlude).
-
-- The rAF loop **pauses off-screen** (IntersectionObserver) and **falls back to
-  a static dark gradient** if WebGL is unavailable or the context is lost.
-- **Reduced motion**: no rotation or auto-orbit, unsmoothed cursor tracking,
-  settles to one frame then stops; a pointer event restarts it, since cursor
-  lighting is user-driven, not vestibular, motion.
-- **Coarse pointers** get a slow auto-orbit light so the form still breathes.
-- No content sits behind the canvas, so nothing can be hidden; DPR is capped and
-  raymarch steps bounded to keep the shader cheap.
+- **Drag is framer `drag`** constrained to the section, momentum off, so a
+  sticker stops where you drop it. Dragging raises it to the top of the pile.
+- **Stickers never fade.** They rest at their data position with no entrance
+  animation; `.sticker img` carries a slow transform-only drift (`sticker-drift`,
+  alternate, 5.5 to 9.5s per sticker) that pauses while held and collapses under
+  reduced motion via the global rule.
+- **The default wallpaper is always painted** underneath the cycled ones, so
+  switching cross-fades over a full image and can never show a blank band.
+- Touch: stickers are `touch-none` so they drag instead of scrolling; the
+  wallpaper between them scrolls the page. Sticker sizes scale down on small
+  screens (`--sticker-scale`) to keep enough wallpaper to grab.
 
 ### Route mask (`components/common/route-mask.tsx`)
 

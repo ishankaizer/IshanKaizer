@@ -346,6 +346,60 @@
   transform: translate(0, 0);
 }
 
+/* Toolkit folders: an illustrated folder per tool, lifted on hover. */
+.folder img {
+  filter: drop-shadow(0 8px 14px rgba(35, 32, 26, 0.16));
+  transition: transform 0.5s cubic-bezier(0.16, 0.84, 0.3, 1);
+  will-change: transform;
+}
+.folder:hover img {
+  transform: translateY(-6px) rotate(-2deg);
+}
+.folder:hover figcaption {
+  color: var(--color-brand-strong);
+}
+.dark .folder img {
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.5));
+}
+
+/* Things I like: a wallpaper desk with draggable stickers. Sizes scale with
+   the viewport so the pile stays sparse enough to scroll past on a phone.
+   Drift is transform-only and pauses while a sticker is held. */
+.likes-board {
+  --sticker-scale: 0.55;
+}
+@media (min-width: 640px) {
+  .likes-board {
+    --sticker-scale: 0.75;
+  }
+}
+@media (min-width: 1024px) {
+  .likes-board {
+    --sticker-scale: 1;
+  }
+}
+.sticker img {
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2)) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.3));
+  animation: sticker-drift 7s ease-in-out infinite alternate;
+}
+.sticker:hover img,
+.sticker:active img {
+  animation-play-state: paused;
+}
+.sticker--photo {
+  border: 5px solid #fbf8f1;
+  border-bottom-width: 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+@keyframes sticker-drift {
+  from {
+    transform: translateY(-3px) rotate(-0.6deg);
+  }
+  to {
+    transform: translateY(3px) rotate(0.6deg);
+  }
+}
+
 /* Contact postcards: two scanned cards laid on the paper. The shadow follows
    the torn edge (drop-shadow, not box-shadow) and a card straightens and lifts
    when picked up. Transform only; the image is never dimmed or blurred. */

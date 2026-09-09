@@ -38,7 +38,7 @@ export function Footer() {
     <footer id="contact" className="scroll-mt-24 border-t border-hairline bg-paper-2">
       <Container className="pt-20 pb-8 sm:pt-28 lg:pt-32">
         <SectionHeader
-          index={pathname === '/' ? '06' : undefined}
+          index={pathname === '/' ? '07' : undefined}
           eyebrow="Contact"
           title={
             <>

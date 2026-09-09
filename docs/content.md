@@ -84,6 +84,24 @@ Placeholders render until the real file exists, so nothing looks broken.
 `public/about/` and `public/music/` contain `_DROP_*_HERE.txt` notes marking
 where files go.
 
+## Wallpapers, stickers and tool folders
+
+The "Things I like" desk reads `src/data/likes.ts`; the toolkit reads `tools`
+in `src/data/about.ts`.
+
+- **Add a wallpaper**: save a WebP under `public/likes/wallpapers/` and append
+  it to `wallpapers`. The first entry is the default.
+- **Add a sticker** from a photo with a flat background:
+  `python scripts/cutout.py in.jpg public/likes/stickers/name.webp` (needs
+  Pillow, numpy, scipy; `--mode rembg` needs rembg for patterned backgrounds;
+  `--split` breaks a sheet into pieces; `--crop T,R,B,L` strips screenshot
+  chrome first). Then add an entry to `stickers` with its pixel size (`iw`,
+  `ih`), display width `w`, resting spot `x`/`y` in percent of the board, tilt
+  `r` and drift period.
+- **Add or reassign a tool folder**: cut the icon with
+  `python scripts/cutout.py in.jpg public/tools/name.webp --max 320` and point
+  the tool's `icon` at it.
+
 ## Generated assets
 
 `scripts/gen-og.mjs` renders `og.png` and the app icons via `@resvg/resvg-js`.
