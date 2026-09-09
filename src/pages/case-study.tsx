@@ -119,7 +119,7 @@ function CaseStudyContent({ project }: { project: Project & { study: NonNullable
         {/* The deck leads. It is the work itself, and it is already a complete
             designed case study, so it comes before the written retelling of it
             rather than 7 screens after. */}
-        <SlideGallery slides={project.slides ?? []} projectTitle={project.title} />
+        <SlideGallery slides={project.slides ?? []} projectTitle={project.title} slug={project.slug} />
 
         {/* Body: a short centred reading column. Framing only, the deck above
             carries the depth. */}
@@ -249,6 +249,7 @@ export function CaseStudyPage() {
             <SlideGallery
               slides={project.slides ?? []}
               projectTitle={project.title}
+              slug={project.slug}
               eyebrow="The work"
             />
           )}

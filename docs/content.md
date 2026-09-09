@@ -27,10 +27,22 @@ to change to update content.
    slug.
 4. If it has a deck, export the slides to
    `public/projects/<slug>/slides/01.webp`, `02.webp`, ... and register the count
-   in `SLIDE_COUNTS`.
+   in `SLIDE_COUNTS`. Then run `node scripts/gen-slide-dims.mjs` so
+   `SlideGallery` knows each slide's real width/height and can reserve the
+   right space before it loads (see [`decisions.md`](./decisions.md#d25-slide-decks-carry-their-real-dimensions-so-they-do-not-jump-while-loading)).
+   Skipping this just means slides load without a reserved size, it is not a
+   build error.
 5. If it links out instead of having a study, set `external`.
 
 No component changes are needed for any of this.
+
+**Keep slide files web-weight, not source-weight.** Export each slide as an
+individually optimised WebP, not a multi-hundred-megabyte PDF or a raw
+screen recording. The existing decks total under 2MB each (largest single
+slide is ~420KB); that is the bar. A giant PDF cannot be dropped in as-is,
+both because it cannot be processed through this tooling and because
+shipping it to a browser would be the opposite of the fast, responsive
+loading the deck is designed for.
 
 ## Case study shape
 

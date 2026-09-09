@@ -419,3 +419,33 @@ structural.
 without an explicit request.** This is the third time a date-shaped field has
 been cut (D22's timeline, this one); treat "should this show a date" as
 answered.
+
+## D25. Slide decks carry their real dimensions, so they do not jump while loading
+
+The owner asked that heavy project decks "load and are very responsive." The
+decks were already lightweight (largest deck today is under 2MB total,
+largest single slide ~420KB, all lazy loaded past the first slide), but every
+`<img>` had no `width`/`height`, so the browser could not reserve its layout
+space before the file arrived. On a slow connection or a heavier deck, that
+shows up as the page jumping as each slide pops in.
+
+`scripts/gen-slide-dims.mjs` reads the real width/height out of each
+`public/projects/<slug>/slides/*.webp` (parsing the WebP header directly, no
+dependency) and writes `src/data/slide-dims.ts`. `SlideGallery` looks up a
+project's slug there and sets `width`/`height` on each slide image, so the
+browser's built-in `aspect-ratio` from those attributes reserves the correct
+space immediately, before the image decodes. The first slide also gets
+`fetchPriority="high"` since it is the thing a visitor sees first.
+
+This is generated data, not hand-maintained: re-run the script after adding or
+replacing slides (see [`content.md`](./content.md#adding-a-project)). Missing
+an entry degrades gracefully, the slide just renders without a reserved size,
+it does not break the build.
+
+**On the 227MB Materia PDF the owner tried to hand over:** it could not be
+pulled through the Drive connector (base64-encoding a file that size into a
+tool response is not viable) and, more importantly, it should not be shipped
+to the browser as-is regardless of how it arrives. It needs to become
+individually exported, web-weight slide images first, the same as every other
+project's deck. See [`content.md`](./content.md#adding-a-project) for the
+weight bar to hit.
