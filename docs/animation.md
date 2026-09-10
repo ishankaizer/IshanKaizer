@@ -89,20 +89,44 @@ in underneath.
 
 - Runs **once per browser session**, gated by `sessionStorage.introPlayed`,
   and only on the homepage because only `Hero` mounts it.
+- **The decision to play is made during render, not in an effect.** `Hero`
+  seeds its state from `shouldPlayIntro()` so the very first paint already
+  carries the overlay. Deciding it in `useEffect` painted the hero for one
+  frame first, which read as the page glimpsing then snapping into the intro.
 - **The hero renders underneath from the start**, so the site loads while the
-  collage is up. The overlay root is transparent; only the screen panel is
-  dark, and it is unmounted the instant the shards start.
-- Shards are full-viewport copies of the collage (`background-size: cover`)
-  clipped with `clip-path` to a **jittered grid whose neighbours share corner
-  points**, so there are no gaps. Fling direction, spin and delay come from a
-  seeded PRNG and are passed as `--dx` / `--rot` / `animation-delay`, so one
-  CSS keyframe drives all 24.
-- Every phase change is a hard `setTimeout` (`HOLD = 1500`, `WRONG_AT = 1000`,
-  `FALL = 1050`, `LOAD_CAP = 1800`); the image only gates the start of the
-  hold, capped at `LOAD_CAP`, and the overlay unmounts on a timer regardless.
+  collage is up.
+- **The collage always fits the viewport whole** (`background-size: contain`),
+  so a phone never gets a zoomed-in crop of a landscape image. A dimmed `cover`
+  copy (`.intro-ambient`, opacity `0.28`) fills the letterbox, and fades out as
+  the pieces fall.
+- Shards are full-viewport copies of the collage clipped with `clip-path` to a
+  **jittered grid whose neighbours share corner points**, so there are no gaps.
+  Crack offset, fling direction, spin and delay come from a seeded PRNG and are
+  passed as custom properties, so one CSS keyframe drives all 24.
+- **The break is two-stage in a single keyframe**: the pieces first separate a
+  few px along the line from the impact point (the crack, eased out), then
+  gravity takes them (eased in), with per-keyframe `animation-timing-function`.
+  Pieces nearest the impact let go first.
+- **Shards are mounted 300ms early, resting exactly on the screen**, and only
+  animate once the root has `.is-breaking`. Nothing changes on screen when they
+  mount, but the compositor has rasterised all 24 before the break, so a slow
+  machine cannot hitch on the first frame of the fall.
+- The scanline and vignette veil lives on `.intro::after`, above both the whole
+  screen and the pieces, so arming is invisible; it clears when the glass does.
+- Every phase change is a hard `setTimeout` (`WRONG_AT = 1350`,
+  `ARM_BEFORE = 300`, `HOLD = 1900`, `FALL = 1450`, `LOAD_CAP = 2000`); the
+  image only gates the start of the hold, capped at `LOAD_CAP`, and the overlay
+  unmounts on a timer regardless.
 - `.hero-stagger` content is visible by default and only hidden while
   `.hero-intro[data-hero-ready='false']`; `ready` flips as the shards begin.
 - Reduced motion skips the whole thing and lands on the resting hero.
+
+**Verifying it:** the preview browser throttles rAF to roughly 1fps while the
+overlay is up, so screenshots stall and a computed style read mid-transition
+returns a frozen value (`.intro-ambient` reads `opacity: 0` there while a fresh
+probe element with the same classes correctly computes `0.28`). Check the phase
+order by polling the DOM, and scrub the real animation by pausing
+`document.getAnimations()` and setting `currentTime`.
 
 The earlier per-word FLIP name intro was retired with this, see
 [`decisions.md`](./decisions.md#d33-the-intro-is-the-wrong-portfolio-being-thrown-away).

@@ -658,3 +658,17 @@ transparent, scratches kept as an overlay so the print reads as worn), tilted,
 taped at the top, with three stickers from section 06 peeking around it.
 This also removed the FLIP's mobile bug where the one-line name overflowed
 the viewport on first load.
+
+## D34. Covers and the hero photo anchor to the top, never the centre
+
+Following the owner's direction: project covers were cropping their own titles
+off. The covers are authored at aspect ratios from 0.85 to 1.78 but are shown
+in fixed 4/3 (the cursor panel) and 16/9 (inline and the case-study header)
+boxes, so `object-cover` with the default centre position trimmed a portrait
+cover by roughly a quarter off the top and the same off the bottom, and the
+title lives at the top.
+
+`ProjectCover` and the hero print now use `object-top`: the crop starts at the
+top edge and takes whatever fits. Album covers were left alone (square art in
+square boxes, nothing is cropped) and so were the two hover photos in section
+04, where the framing is deliberate and no text is involved.

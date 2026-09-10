@@ -612,46 +612,130 @@
    The screen is a dark panel with the collage; shards are full-viewport copies
    clipped to a jittered grid that share corner points, thrown away from the
    impact point on a gravity curve. Every phase is timer-driven, see intro.tsx. */
+.intro {
+  pointer-events: none;
+  background: #0e0d0b;
+}
+.intro.is-breaking {
+  background: transparent;
+  /* One short jolt at the moment of impact, then the pieces let go. */
+  animation: intro-jolt 0.28s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes intro-jolt {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  22% {
+    transform: translate3d(-7px, 5px, 0);
+  }
+  48% {
+    transform: translate3d(6px, -4px, 0);
+  }
+  74% {
+    transform: translate3d(-3px, 2px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* The collage always fits the viewport whole (never zoomed into on a phone);
+   the ambient copy fills the letterbox so it does not sit in dead black. */
 .intro-screen,
 .intro-shard {
   background-color: #0e0d0b;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+.intro-ambient {
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  opacity: 0;
+  transition: opacity 0.45s ease-out;
+}
+.intro-ambient.is-on {
+  opacity: 0.28;
+}
+.is-breaking .intro-ambient.is-on {
+  animation: intro-ambient-out 0.6s ease-in 0.15s both;
+}
+@keyframes intro-ambient-out {
+  to {
+    opacity: 0;
+  }
 }
 .intro-screen {
   opacity: 0;
-  transition: opacity 0.25s ease-out;
+  transition: opacity 0.42s ease-out;
 }
 .intro-screen.is-on {
   opacity: 1;
 }
-.intro-screen::after {
+
+/* Scanlines and vignette sit on the root, above both the whole screen and the
+   pieces, so arming the shards changes nothing on screen. The veil is part of
+   the screen, so it goes the moment the glass does. */
+.intro::after {
   content: "";
   position: absolute;
   inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.42s ease-out;
   background:
     repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 2px, transparent 2px 4px),
     radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
-  pointer-events: none;
 }
+.intro.is-shown::after {
+  opacity: 1;
+}
+.intro.is-breaking::after {
+  animation: intro-veil-out 0.28s ease-out both;
+}
+@keyframes intro-veil-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* The pieces are mounted a beat early, resting exactly on the screen, and only
+   start moving once the root is breaking: the compositor has already
+   rasterised all of them by then, so the break cannot hitch on a slow machine.
+   Two stages in one keyframe: they separate a few pixels along the line from
+   the impact point (the crack), then gravity takes them. */
 .intro-shard {
   will-change: transform;
-  animation: intro-shard-fall 0.8s cubic-bezier(0.5, 0, 0.95, 0.4) both;
+}
+.is-breaking .intro-shard {
+  animation: intro-shard-fall 1.15s both;
 }
 @keyframes intro-shard-fall {
-  from {
-    transform: none;
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    animation-timing-function: cubic-bezier(0.15, 0.7, 0.35, 1);
   }
-  to {
-    transform: translate3d(var(--dx, 0), 130vh, 0) rotate(var(--rot, 0deg));
+  16% {
+    transform: translate3d(var(--cx, 0), var(--cy, 0), 0) rotate(var(--crot, 0deg));
+    animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.45);
+  }
+  100% {
+    transform: translate3d(var(--dx, 0), 135vh, 0) rotate(var(--rot, 0deg));
   }
 }
-.intro-flash {
-  animation: intro-flash 0.4s ease-out both;
+.intro-impact {
+  background: radial-gradient(
+    circle at var(--ix, 50%) var(--iy, 50%),
+    rgba(255, 255, 255, 0.85),
+    rgba(255, 255, 255, 0.28) 12%,
+    transparent 42%
+  );
+  animation: intro-impact 0.5s ease-out both;
 }
-@keyframes intro-flash {
+@keyframes intro-impact {
   from {
-    opacity: 0.6;
+    opacity: 0.9;
   }
   to {
     opacity: 0;

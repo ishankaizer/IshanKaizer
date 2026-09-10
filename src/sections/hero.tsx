@@ -25,36 +25,37 @@ const stickers = [
   { src: '/likes/stickers/tiger-small.webp', alt: '', w: 'w-16 lg:w-24', pos: 'bottom-20 -left-8 lg:-left-16', r: 9, drift: 6.5 },
 ]
 
+/**
+ * Read synchronously so the very first paint already carries the overlay.
+ * Deciding this in an effect painted the hero for one frame first, which read
+ * as a glimpse of the page snapping into the intro.
+ */
+function shouldPlayIntro() {
+  try {
+    if (sessionStorage.getItem('introPlayed') === 'true') return false
+  } catch {
+    /* private mode, treat as first visit */
+  }
+  return !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
 export function Hero() {
   const reduce = useReducedMotion()
-  const [intro, setIntro] = useState(false)
-  const [ready, setReady] = useState(false)
+  const [intro, setIntro] = useState(shouldPlayIntro)
+  const [ready, setReady] = useState(() => !shouldPlayIntro())
 
+  // Marked once the intro is not (or no longer) on screen, so a new tab plays
+  // it and a refresh does not.
   useEffect(() => {
-    let play = true
-    try {
-      play = sessionStorage.getItem('introPlayed') !== 'true'
-    } catch {
-      play = true
-    }
-    if (!play || reduce) {
-      try {
-        sessionStorage.setItem('introPlayed', 'true')
-      } catch {
-        /* ignore */
-      }
-      const t = window.setTimeout(() => setReady(true), 60)
-      return () => window.clearTimeout(t)
-    }
-    setIntro(true)
-  }, [reduce])
-
-  const finish = () => {
+    if (intro) return
     try {
       sessionStorage.setItem('introPlayed', 'true')
     } catch {
-      /* ignore */
+      /* private mode, it simply plays again */
     }
+  }, [intro])
+
+  const finish = () => {
     setReady(true)
     setIntro(false)
   }
@@ -135,7 +136,7 @@ export function Hero() {
                   height={1892}
                   loading="eager"
                   decoding="async"
-                  className="size-full object-cover object-[50%_38%] grayscale transition-[filter] duration-700 group-hover:grayscale-0"
+                  className="size-full object-cover object-top grayscale transition-[filter] duration-700 group-hover:grayscale-0"
                 />
               </div>
               <img

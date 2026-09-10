@@ -38,7 +38,7 @@ export function ProjectCover({
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
           onError={() => setFailed(true)}
-          className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          className="size-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
       ) : (
         <div className="absolute inset-0 grid place-items-center p-6 transition-transform duration-700 ease-out group-hover:scale-[1.03]">
