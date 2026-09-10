@@ -400,6 +400,141 @@
   }
 }
 
+/* Experience receipt: thermal paper with a crumple map multiplied in, a grain
+   and faint print banding on top, and a dashed rule voice. The stage clips only
+   sideways so the receipt can hang below it and scroll natively. */
+.receipt-stage {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+.receipt-paper {
+  background-color: #f3ede1;
+  background-image: url("/experience/crumple.jpg");
+  background-size: 520px 520px;
+  background-blend-mode: multiply;
+  color: #211d17;
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.1),
+    0 34px 60px -30px rgba(35, 32, 26, 0.5);
+}
+.receipt-paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(33, 29, 23, 0.05) 0 1px, transparent 1px 3px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  background-size:
+    auto,
+    180px 180px;
+}
+.receipt-body {
+  position: relative;
+  z-index: 2;
+}
+.receipt-paper > .pinned {
+  z-index: 3;
+}
+.receipt-rule {
+  border-top: 2px dashed rgba(33, 29, 23, 0.5);
+}
+.receipt-row {
+  transition: color 0.2s ease;
+}
+.receipt-row:hover {
+  color: var(--brand-strong);
+}
+.receipt-barcode {
+  background-image: repeating-linear-gradient(
+    90deg,
+    #211d17 0 2px,
+    transparent 2px 4px,
+    #211d17 4px 5px,
+    transparent 5px 9px,
+    #211d17 9px 12px,
+    transparent 12px 14px,
+    #211d17 14px 15px,
+    transparent 15px 19px
+  );
+}
+.receipt-cursor {
+  display: inline-block;
+  animation: intro-blink 1s steps(2, start) infinite;
+}
+.receipt-world .pinned--taped {
+  left: 100%;
+  top: 34%;
+  margin-left: 2.5rem;
+}
+.receipt-machine img {
+  filter: drop-shadow(0 26px 34px rgba(35, 32, 26, 0.35));
+}
+
+/* Things pinned to the page: a die-cut sticker (shares .sticker), or a photo in
+   a polaroid frame, taped down, or pushpinned. */
+.pinned img {
+  display: block;
+}
+.pinned--polaroid,
+.pinned--taped,
+.pinned--pinned {
+  background: #fbf8f1;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.18),
+    0 16px 28px -14px rgba(35, 32, 26, 0.45);
+}
+.pinned--polaroid {
+  padding: 6px 6px 26px;
+}
+.pinned--taped {
+  padding: 5px;
+}
+.pinned--pinned {
+  padding: 4px;
+}
+.pinned__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 7px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6d6454;
+}
+.pinned__tape {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 46%;
+  height: 20px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(255, 252, 240, 0.55);
+  border: 1px solid rgba(35, 32, 26, 0.12);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+.pinned__pin {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff8a76, var(--brand) 55%, #8f1f14);
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.35),
+    0 6px 8px -4px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
 /* Contact postcards: two scanned cards laid on the paper. The shadow follows
    the torn edge (drop-shadow, not box-shadow) and a card straightens and lifts
    when picked up. Transform only; the image is never dimmed or blurred. */

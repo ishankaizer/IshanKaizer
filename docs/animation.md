@@ -131,6 +131,16 @@ order by polling the DOM, and scrub the real animation by pausing
 The earlier per-word FLIP name intro was retired with this, see
 [`decisions.md`](./decisions.md#d33-the-intro-is-the-wrong-portfolio-being-thrown-away).
 
+### Experience receipt (`sections/experience.tsx`)
+
+Scroll-scrubbed zoom into the card the owner is holding, then a native scroll
+down the receipt. `useScroll` over a pinned wrapper drives one `scale`/`x`/`y`
+on the world (mechanical ease) and an opacity plus a slide on the full photo;
+geometry comes from a `ResizeObserver` and lives in motion values so it can
+change on resize. The resting state is the untransformed world, so with JS dead
+the receipt is simply laid out under the card. See
+[`decisions.md`](./decisions.md#d35-experience-is-a-till-receipt-and-the-site-gets-pinned-stickers).
+
 ### Hero print (`sections/hero.tsx`)
 
 The portrait sits in the see-through window of a scanned 1979 photo card

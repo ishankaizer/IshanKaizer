@@ -1,6 +1,7 @@
 import { Section } from '@/components/common/section'
 import { SectionHeader } from '@/components/common/section-header'
 import { Reveal } from '@/components/common/reveal'
+import { Pinned } from '@/components/common/pinned'
 import { tools } from '@/data/about'
 
 /**
@@ -9,7 +10,17 @@ import { tools } from '@/data/about'
  */
 export function Skills() {
   return (
-    <Section id="skills" divided>
+    <Section id="skills" divided className="relative">
+      <Pinned
+        src="/stickers/blob-hat.webp"
+        className="right-8 top-28 hidden w-24 sm:block lg:right-24 lg:top-32 lg:w-28"
+        tilt={10}
+      />
+      <Pinned
+        src="/stickers/flip-phone.webp"
+        className="bottom-16 left-4 hidden w-16 sm:block lg:left-16 lg:w-24"
+        tilt={-12}
+      />
       <SectionHeader
         index="05"
         eyebrow="Toolkit"

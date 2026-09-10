@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { Container } from '@/components/common/container'
 import { SectionHeader } from '@/components/common/section-header'
 import { CopyButton } from '@/components/common/copy-button'
+import { Pinned } from '@/components/common/pinned'
 import { Button } from '@/components/ui/button'
 import { site } from '@/data/site'
 import { cn } from '@/lib/utils'
@@ -101,7 +102,20 @@ export function Footer() {
         </div>
       </div>
 
-      <Container className="pb-8">
+      <Container className="relative pb-8">
+        <Pinned
+          src="/stickers/money-sign.webp"
+          variant="polaroid"
+          caption="career plan"
+          className="left-[46%] top-16 hidden w-32 lg:block"
+          tilt={5}
+        />
+        <Pinned
+          src="/stickers/deer-blessin.webp"
+          variant="pinned"
+          className="left-[61%] top-8 hidden w-28 lg:block"
+          tilt={-6}
+        />
         <div className="mt-12 grid grid-cols-1 gap-10 border-t border-hairline pt-10 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-mute">Reach me</p>

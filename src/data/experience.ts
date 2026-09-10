@@ -1,5 +1,13 @@
 import type { ExperienceRole } from '@/types'
 
+/** The receipt's footer lines. The auth code is his college roll number. */
+export const receipt = {
+  order: '0003',
+  total: '4 YRS',
+  auth: '22BID0009',
+  thanks: 'Thank you for scrolling!',
+}
+
 export const experience: ExperienceRole[] = [
   {
     when: 'Jul 2026 – Present',

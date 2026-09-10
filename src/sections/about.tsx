@@ -1,4 +1,5 @@
 import { Container } from '@/components/common/container'
+import { Pinned } from '@/components/common/pinned'
 import { Reveal } from '@/components/common/reveal'
 import { Portrait } from '@/components/common/portrait'
 import { about } from '@/data/about'
@@ -45,6 +46,20 @@ export function About() {
         <Reveal delay={0.1} className="mt-14 md:hidden">
           <Portrait className="aspect-[4/5] w-full max-w-xs" />
         </Reveal>
+
+        <Pinned
+          src="/stickers/monkey-thinking.webp"
+          variant="polaroid"
+          caption="deciding"
+          className="right-[6%] top-14 hidden w-36 md:block lg:right-[10%] lg:top-16 lg:w-40"
+          tilt={6}
+        />
+        <Pinned
+          src="/stickers/dolphins-key-to-life.webp"
+          variant="taped"
+          className="bottom-8 left-[54%] hidden w-36 md:block lg:left-[50%] lg:w-44"
+          tilt={-5}
+        />
       </Container>
     </section>
   )

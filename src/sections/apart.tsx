@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Section } from '@/components/common/section'
 import { SectionHeader } from '@/components/common/section-header'
 import { Reveal } from '@/components/common/reveal'
+import { Pinned } from '@/components/common/pinned'
 import { philosophies } from '@/data/about'
 import { cn } from '@/lib/utils'
 
@@ -15,7 +16,12 @@ export function Apart() {
   const [active, setActive] = useState<number | null>(null)
 
   return (
-    <Section id="apart" band divided>
+    <Section id="apart" band divided className="relative">
+      <Pinned
+        src="/stickers/blob-cry.webp"
+        className="right-6 top-24 hidden w-24 sm:block lg:right-20 lg:top-28 lg:w-28"
+        tilt={-8}
+      />
       <SectionHeader
         index="04"
         eyebrow="How I think"

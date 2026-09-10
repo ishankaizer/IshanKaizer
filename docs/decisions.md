@@ -672,3 +672,45 @@ title lives at the top.
 top edge and takes whatever fits. Album covers were left alone (square art in
 square boxes, nothing is cropped) and so were the two hover photos in section
 04, where the framing is deliberate and no text is involved.
+
+## D35. Experience is a till receipt, and the site gets pinned stickers
+
+Following the owner's direction, with his references (a Receiptify receipt
+held at the top and running into a typewriter, a crumpled receipt with stickers
+pinned to it). Section 03 is now `sections/experience.tsx`:
+
+- **One world at final size.** The card (cropped from his own cutout photo so
+  it lines up pixel for pixel over the full photo), the receipt paper tucked
+  under it, and the typewriter at the bottom are laid out once at their resting
+  size, in units of the receipt width (`G` in the file, printed by
+  `scripts/gen-experience-assets.py`). The receipt is real DOM: every line
+  item is a button that unfolds its bullet points, and unfolding just makes the
+  page longer.
+- **A pinned stage zooms into the card.** Over `PIN_VH` of scroll the world
+  scales from "the whole photo sits at two thirds of the viewport" to 1, about
+  the card's centre. Because he is to the right of the card, the zoom itself
+  pushes him out of frame; the full photo also slides right and fades so only
+  the card and the fingers holding it remain. Then the stage releases and the
+  receipt hanging below it scrolls natively. The section reserves that overflow
+  as `padding-bottom`, measured from the world's real height with a
+  `ResizeObserver`, so the scroll length always matches, unfolded or not.
+- **Text is never scaled at rest.** Only during the zoom is the receipt under a
+  transform, so its mono type stays crisp.
+- **Robustness:** everything is a pure function of scroll position; the resting
+  layout is scale 1 with the holder faded out; reduced motion skips the pin.
+- **Paper:** thermal cream with a procedural crumple map multiplied in, grain
+  and faint print banding on top, dashed rules, a CSS barcode, and the footer
+  lines from Receiptify (`ITEM COUNT`, `TOTAL: 4 YRS`, `AUTH CODE` is his roll
+  number, in `data/experience.ts`). A blinking `STILL PRINTING_` is the last
+  line before the paper disappears into the roller.
+- **The machine** is the OMONT typewriter from his reference, cropped from the
+  roller down. Its provenance is recorded in `resources/README.md`; it should be
+  replaced with an owned or licensed image before any commercial use.
+
+**Stickers elsewhere.** The eleven images in his "more stickers" drop were
+placed with `components/common/pinned.tsx`: die-cut ones (flat background
+removed with `scripts/cutout.py`) as stickers, photographs kept whole in a
+polaroid frame, taped down, or pushpinned. None sit near the projects, which
+stay serious. Where each one went is listed in `resources/README.md`. They are
+decorative (`aria-hidden`, no pointer events) and hidden below `sm`/`md`/`lg`
+where they would crowd a phone.

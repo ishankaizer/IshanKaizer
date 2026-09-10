@@ -10,7 +10,7 @@ to change to update content.
 | Name, role, location, email, phone, socials, availability | `src/data/site.ts` |
 | The About statement | `src/data/about.ts` (`statement`, `sub`) |
 | The two "Two mediums" cards (words, hover photo, caption), tools | `src/data/about.ts` |
-| Roles and history | `src/data/experience.ts` |
+| Roles and history, and the receipt's footer lines (order, total, auth code) | `src/data/experience.ts` |
 | Project cards | `src/data/projects.ts` |
 | A long-form case study | `src/data/case-studies/<slug>.ts` |
 | Music marquee tracks | `src/data/music.ts` |
@@ -98,6 +98,13 @@ in `src/data/about.ts`.
   chrome first). Then add an entry to `stickers` with its pixel size (`iw`,
   `ih`), display width `w`, resting spot `x`/`y` in percent of the board, tilt
   `r` and drift period.
+- **Rebuild the Experience receipt assets** (after replacing the holder photo
+  or the typewriter): `python scripts/gen-experience-assets.py`, then copy the
+  printed fractions into `G` in `src/sections/experience.tsx`.
+- **Stick something on a section**: cut it with `scripts/cutout.py` (or keep a
+  photo whole) into `public/stickers/`, then drop a `<Pinned>` into the section
+  with a variant (`cutout`, `polaroid`, `taped`, `pinned`), a position class and
+  a tilt. Record it in `resources/README.md`.
 - **Add or reassign a tool folder**: cut the icon with
   `python scripts/cutout.py in.jpg public/tools/name.webp --max 320` and point
   the tool's `icon` at it.
