@@ -407,24 +407,35 @@
   overflow-x: clip;
   overflow-y: visible;
 }
-.receipt-paper {
-  background-color: #f3ede1;
-  background-image: url("/experience/crumple.jpg");
-  background-size: 520px 520px;
-  background-blend-mode: multiply;
-  color: #211d17;
-  box-shadow:
-    0 2px 3px rgba(0, 0, 0, 0.1),
-    0 34px 60px -30px rgba(35, 32, 26, 0.5);
+/* The torn edges are clip-paths, which would cut a box-shadow off, so the
+   shadow is a drop-shadow on the world and follows the teeth. */
+.receipt-world {
+  position: relative;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12)) drop-shadow(0 28px 40px rgba(35, 32, 26, 0.28));
 }
-.receipt-paper::after {
+/* The crumple is a large, faint wash: any darker and the print stops being
+   comfortable to read, which is the whole point of a receipt. */
+.receipt-paper,
+.receipt-stub {
+  background-color: #f4efe4;
+  background-image: url("/experience/crumple.jpg");
+  background-size: 900px 900px;
+  background-blend-mode: multiply;
+  color: #1c1913;
+}
+.receipt-stub {
+  rotate: 2.2deg;
+  transform-origin: 30% 0;
+}
+.receipt-paper::after,
+.receipt-stub::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   mix-blend-mode: multiply;
-  opacity: 0.55;
+  opacity: 0.4;
   background-image:
     repeating-linear-gradient(0deg, rgba(33, 29, 23, 0.05) 0 1px, transparent 1px 3px),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
@@ -435,9 +446,6 @@
 .receipt-body {
   position: relative;
   z-index: 2;
-}
-.receipt-paper > .pinned {
-  z-index: 3;
 }
 .receipt-rule {
   border-top: 2px dashed rgba(33, 29, 23, 0.5);
@@ -465,13 +473,26 @@
   display: inline-block;
   animation: intro-blink 1s steps(2, start) infinite;
 }
-.receipt-world .pinned--taped {
+/* Stickers live in the margins beside the paper, never over the print. */
+.receipt-world > .pinned:nth-of-type(1) {
   left: 100%;
-  top: 34%;
-  margin-left: 2.5rem;
+  top: 16%;
+  margin-left: 1.75rem;
 }
-.receipt-machine img {
-  filter: drop-shadow(0 26px 34px rgba(35, 32, 26, 0.35));
+.receipt-world > .pinned:nth-of-type(2) {
+  right: 100%;
+  top: 44%;
+  margin-right: 1.75rem;
+}
+.receipt-world > .pinned:nth-of-type(3) {
+  left: 100%;
+  top: 68%;
+  margin-left: 2.25rem;
+}
+.receipt-world > .pinned:nth-of-type(4) {
+  right: 100%;
+  top: 6%;
+  margin-right: 2.75rem;
 }
 
 /* Things pinned to the page: a die-cut sticker (shares .sticker), or a photo in

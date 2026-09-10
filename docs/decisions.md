@@ -675,6 +675,9 @@ square boxes, nothing is cropped) and so were the two hover photos in section
 
 ## D35. Experience is a till receipt, and the site gets pinned stickers
 
+**The card-holder photo and the typewriter described here were cut in D36**;
+the receipt itself, the fold-out line items and the stickers all stand.
+
 Following the owner's direction, with his references (a Receiptify receipt
 held at the top and running into a typewriter, a crumpled receipt with stickers
 pinned to it). Section 03 is now `sections/experience.tsx`:
@@ -714,3 +717,25 @@ polaroid frame, taped down, or pushpinned. None sit near the projects, which
 stay serious. Where each one went is listed in `resources/README.md`. They are
 decorative (`aria-hidden`, no pointer events) and hidden below `sm`/`md`/`lg`
 where they would crowd a phone.
+
+## D36. The receipt stands alone: no holder photo, no typewriter, bigger type
+
+Following the owner's direction after seeing D35 live: the photo of him holding
+the card and the typewriter at the end were both cut. The receipt was too small
+to read comfortably, and a portfolio has to be read.
+
+- The paper is now up to 640px wide with mono type at `0.86rem` (`0.95rem`
+  from `sm`), and it still grows: a pinned stage scales it about its top edge
+  from `0.72` to `1` over `70vh` of scroll (`0.88` on phones, where it already
+  runs edge to edge), then releases so the rest scrolls natively at full size.
+  Type is never scaled at rest.
+- The ending is a perforation: `tear here`, a serrated bottom edge (a
+  `clip-path` polygon, so the shadow is a `drop-shadow` on the wrapper and
+  follows the teeth), and a narrower "customer copy" stub torn off and hanging
+  askew below with the blinking `still printing_`.
+- **Stickers never cover the print.** The four decorations sit in the margins
+  beside the paper (positioned off `left: 100%` / `right: 100%`) and only from
+  `lg`, where there is a margin to sit in.
+
+`holder.webp`, `card.webp` and `machine.webp` were removed and
+`scripts/gen-experience-assets.py` now only generates the crumple map.

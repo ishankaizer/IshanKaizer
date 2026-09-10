@@ -133,13 +133,14 @@ The earlier per-word FLIP name intro was retired with this, see
 
 ### Experience receipt (`sections/experience.tsx`)
 
-Scroll-scrubbed zoom into the card the owner is holding, then a native scroll
-down the receipt. `useScroll` over a pinned wrapper drives one `scale`/`x`/`y`
-on the world (mechanical ease) and an opacity plus a slide on the full photo;
-geometry comes from a `ResizeObserver` and lives in motion values so it can
-change on resize. The resting state is the untransformed world, so with JS dead
-the receipt is simply laid out under the card. See
-[`decisions.md`](./decisions.md#d35-experience-is-a-till-receipt-and-the-site-gets-pinned-stickers).
+The receipt arrives a little small and grows to full size as you scroll into
+it, then the rest of it scrolls natively. `useScroll` over a pinned wrapper
+drives a single `scale` about the paper's top edge (mechanical ease, `0.72` to
+`1`, and `0.88` on phones where it already runs edge to edge); the start scale
+comes from a `ResizeObserver` and lives in a motion value so it survives a
+resize. The resting state is the untransformed paper, so type is never scaled
+at rest and with JS dead the receipt is simply laid out. See
+[`decisions.md`](./decisions.md#d36-the-receipt-stands-alone-no-holder-photo-no-typewriter-bigger-type).
 
 ### Hero print (`sections/hero.tsx`)
 

@@ -98,9 +98,10 @@ in `src/data/about.ts`.
   chrome first). Then add an entry to `stickers` with its pixel size (`iw`,
   `ih`), display width `w`, resting spot `x`/`y` in percent of the board, tilt
   `r` and drift period.
-- **Rebuild the Experience receipt assets** (after replacing the holder photo
-  or the typewriter): `python scripts/gen-experience-assets.py`, then copy the
-  printed fractions into `G` in `src/sections/experience.tsx`.
+- **Rebuild the receipt's paper texture**:
+  `python scripts/gen-experience-assets.py` (regenerates
+  `public/experience/crumple.jpg`). Keep it near white; it is multiplied onto
+  the paper and anything darker costs readability.
 - **Stick something on a section**: cut it with `scripts/cutout.py` (or keep a
   photo whole) into `public/stickers/`, then drop a `<Pinned>` into the section
   with a variant (`cutout`, `polaroid`, `taped`, `pinned`), a position class and

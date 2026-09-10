@@ -8,43 +8,48 @@ import { site } from '@/data/site'
 import type { ExperienceRole } from '@/types'
 
 /**
- * Experience as a till receipt. The owner holds a pink card; on scroll the
- * stage zooms into the card, which pushes him out of frame, and the card turns
- * out to be the tip of a long receipt that runs down into a typewriter still
- * printing it. Each line item unfolds its detail when clicked.
+ * Experience as a till receipt. The paper arrives a little small and, as you
+ * scroll into it, grows to full size (a pinned stage scales it about its top
+ * edge over PIN_VH of scroll), then releases and the rest of the receipt
+ * scrolls natively at full size. Each line item unfolds its detail on click.
+ * The paper ends torn along a perforation, with the customer-copy stub
+ * hanging off the end.
  *
- * One "world" holds the card, the receipt and the machine at their final size
- * (the receipt is never scaled at rest, so its type stays crisp). A pinned
- * stage scales the world from "whole photo fits" to 1 over PIN_VH of scroll,
- * then releases, and the receipt hanging below scrolls natively. The section
- * reserves that overflow as padding, measured from the world's real height, so
- * unfolding an item just makes the page longer.
+ * Readability first: the receipt is never scaled at rest, stickers sit in the
+ * margins beside the paper (desktop only) and never over the print, and the
+ * section reserves the paper's overflow as padding, measured from its real
+ * height, so unfolding an item just makes the page longer.
  *
- * Robustness: the resting layout is scale 1 with the holder faded out; every
- * value is a pure function of scroll position, nothing is gated on an event.
- * Reduced motion skips the pin and lands on the resting layout.
+ * Robustness: the resting layout is scale 1; every value is a pure function of
+ * scroll position; reduced motion skips the pin.
  */
-
-/** Geometry in units of the card width, printed by scripts/gen-experience-assets.py. */
-const G = {
-  photoW: 2.0631,
-  photoH: 1.9798,
-  photoLeft: -0.0151,
-  photoTop: -0.7957,
-  cropW: 1.0151,
-  cropH: 0.8159,
-  cropLeft: -0.0151,
-  cropTop: -0.0883,
-  cardH: 0.6015,
-  machineAspect: 0.3909,
-}
-const TUCK = 0.08 // how far the paper starts behind the card
-const MACHINE_W = 1.5 // machine width, in card widths
-const MACHINE_OVERLAP = 0.16 // paper hidden behind the roller
-const PIN_VH = 110 // scroll distance the zoom takes
-const MAX_W = 500
+const MAX_W = 640
+const START_SCALE = 0.72
+const PIN_VH = 70
+const TOP = 96 // below the sticky nav
+const TEETH = 26
 
 const mech = cubicBezier(0.16, 0.84, 0.3, 1)
+
+/** A serrated edge as a clip-path, teeth along the bottom (or the top). */
+function tear(edge: 'bottom' | 'top', depth = 10) {
+  const pts: string[] = []
+  const step = 100 / TEETH
+  if (edge === 'bottom') {
+    pts.push('0 0', '100% 0')
+    for (let i = TEETH; i >= 0; i--) {
+      const x = i * step
+      pts.push(`${x.toFixed(2)}% calc(100% - ${i % 2 ? depth : 0}px)`)
+    }
+  } else {
+    for (let i = 0; i <= TEETH; i++) {
+      const x = i * step
+      pts.push(`${x.toFixed(2)}% ${i % 2 ? depth : 0}px`)
+    }
+    pts.push('100% 100%', '0 100%')
+  }
+  return `polygon(${pts.join(', ')})`
+}
 
 function receiptDate() {
   return new Date()
@@ -56,8 +61,10 @@ function Row({ role, index }: { role: ExperienceRole; index: number }) {
   const [open, setOpen] = useState(false)
   const id = useId()
   const foldable = role.points.length > 0
+  // Narrow paper stacks the date under the item; side by side there is not
+  // enough room for both and the role name wraps a word per line.
   const head = (
-    <span className="grid w-full grid-cols-[2.2ch_1fr_auto] gap-x-3 text-left">
+    <span className="grid w-full grid-cols-[2.4ch_1fr] gap-x-4 text-left sm:grid-cols-[2.4ch_1fr_auto]">
       <span>{String(index + 1).padStart(2, '0')}</span>
       <span className="min-w-0">
         <span className="block font-semibold">{role.role}</span>
@@ -65,17 +72,18 @@ function Row({ role, index }: { role: ExperienceRole; index: number }) {
           {role.org}
           {role.location ? `, ${role.location}` : ''}
         </span>
+        <span className="mt-1 block text-[0.88em] opacity-70 sm:hidden">{role.when}</span>
         {foldable && (
-          <span className="mt-0.5 block text-[0.85em] tracking-[0.08em] opacity-60">
+          <span className="mt-1 block text-[0.85em] tracking-[0.08em] opacity-60">
             [{open ? '-' : '+'}] {open ? 'fold' : 'details'}
           </span>
         )}
       </span>
-      <span className="whitespace-nowrap text-right text-[0.9em]">{role.when}</span>
+      <span className="hidden whitespace-nowrap text-right text-[0.9em] sm:block">{role.when}</span>
     </span>
   )
   return (
-    <li className="py-2">
+    <li className="py-3">
       {foldable ? (
         <button
           type="button"
@@ -90,7 +98,7 @@ function Row({ role, index }: { role: ExperienceRole; index: number }) {
         head
       )}
       {foldable && (
-        <ul id={id} hidden={!open} className="mt-2 flex flex-col gap-1.5 pl-[2.2ch] text-[0.9em] normal-case">
+        <ul id={id} hidden={!open} className="mt-2.5 flex flex-col gap-2 pl-[2.4ch] text-[0.92em] normal-case">
           {role.points.map((p) => (
             <li key={p.slice(0, 24)} className="flex gap-2">
               <span aria-hidden>*</span>
@@ -104,56 +112,71 @@ function Row({ role, index }: { role: ExperienceRole; index: number }) {
 }
 
 function Rule() {
-  return <span aria-hidden className="receipt-rule my-2 block" />
+  return <span aria-hidden className="receipt-rule my-3 block" />
 }
 
-function Receipt({ w }: { w: number }) {
+function Receipt() {
   return (
-    <div className="receipt-paper relative z-0" style={{ marginTop: (G.cardH - TUCK) * w }}>
-      <div className="receipt-body px-6 pb-8 pt-16 font-mono text-[0.74rem] uppercase leading-snug tracking-[0.02em] sm:px-7 sm:text-[0.78rem]">
-        <p className="text-center font-display text-[2.1rem] font-black uppercase leading-none tracking-tight">
-          Receipt
-        </p>
-        <p className="mt-1 text-center">Experience, 2022 to present</p>
+    <div className="receipt-world">
+      <div className="receipt-paper relative" style={{ clipPath: tear('bottom') }}>
+        <div className="receipt-body px-7 pb-12 pt-10 font-mono text-[0.86rem] uppercase leading-snug tracking-[0.02em] sm:px-9 sm:text-[0.95rem]">
+          <p className="text-center font-display text-[2.6rem] font-black uppercase leading-none tracking-tight sm:text-[3rem]">
+            Receipt
+          </p>
+          <p className="mt-1.5 text-center">Experience, 2022 to present</p>
 
-        <p className="mt-6">Order #{receipt.order} for {site.name.replace(' ', '').toUpperCase()}</p>
-        <p>{receiptDate()}</p>
-        <Rule />
-        <p className="grid grid-cols-[2.2ch_1fr_auto] gap-x-3">
-          <span>Qty</span>
-          <span>Item</span>
-          <span>Amt</span>
-        </p>
-        <Rule />
-        <ol className="divide-y divide-dashed divide-[rgba(33,29,23,0.18)]">
-          {experience.map((role, i) => (
-            <Row key={role.role + role.when} role={role} index={i} />
-          ))}
-        </ol>
-        <Rule />
-        <p className="flex justify-between">
-          <span>Item count:</span>
-          <span>{String(experience.length).padStart(2, '0')}</span>
-        </p>
-        <p className="flex justify-between font-semibold">
-          <span>Total:</span>
-          <span>{receipt.total}</span>
-        </p>
-        <Rule />
-        <p>Card #: **** **** **** 2026</p>
-        <p>Auth code: {receipt.auth}</p>
-        <p>Cardholder: {site.name}</p>
-        <p className="mt-6 text-center">{receipt.thanks}</p>
-        <span aria-hidden className="receipt-barcode mx-auto mt-4 block h-12 w-[82%]" />
-        <p className="mt-2 text-center text-[0.9em] normal-case">{site.url.replace('https://', '')}</p>
-        <p className="mt-8 text-[0.85em] opacity-60">
-          Still printing<span className="receipt-cursor" aria-hidden>_</span>
-        </p>
+          <p className="mt-7">Order #{receipt.order} for {site.name.replace(' ', '').toUpperCase()}</p>
+          <p>{receiptDate()}</p>
+          <Rule />
+          <p className="grid grid-cols-[2.4ch_1fr] gap-x-4 sm:grid-cols-[2.4ch_1fr_auto]">
+            <span>Qty</span>
+            <span>Item</span>
+            <span className="hidden sm:block">Amt</span>
+          </p>
+          <Rule />
+          <ol className="divide-y divide-dashed divide-[rgba(33,29,23,0.18)]">
+            {experience.map((role, i) => (
+              <Row key={role.role + role.when} role={role} index={i} />
+            ))}
+          </ol>
+          <Rule />
+          <p className="flex justify-between">
+            <span>Item count:</span>
+            <span>{String(experience.length).padStart(2, '0')}</span>
+          </p>
+          <p className="flex justify-between font-semibold">
+            <span>Total:</span>
+            <span>{receipt.total}</span>
+          </p>
+          <Rule />
+          <p>Card #: **** **** **** 2026</p>
+          <p>Auth code: {receipt.auth}</p>
+          <p>Cardholder: {site.name}</p>
+          <p className="mt-7 text-center">{receipt.thanks}</p>
+          <span aria-hidden className="receipt-barcode mx-auto mt-4 block h-14 w-[82%]" />
+          <p className="mt-2 text-center text-[0.9em] normal-case">{site.url.replace('https://', '')}</p>
+          <p className="mt-8 text-center text-[0.8em] tracking-[0.2em] opacity-60">
+            &#10218; tear here &#10219;
+          </p>
+        </div>
       </div>
 
-      <Pinned src="/stickers/frog-glitter.webp" className="-right-9 top-[24%] w-24 sm:w-28" tilt={14} />
-      <Pinned src="/stickers/dog-heart.webp" className="-left-10 top-[56%] w-24 sm:w-28" tilt={-10} />
-      <Pinned src="/stickers/designer-badge.webp" className="right-4 bottom-[9%] w-24 sm:w-28" tilt={8} />
+      {/* The stub, torn off along the perforation and left hanging askew. */}
+      <div className="receipt-stub relative mx-auto mt-2 w-[72%]" style={{ clipPath: tear('top') }}>
+        <div className="receipt-body px-6 pb-6 pt-8 text-center font-mono text-[0.7rem] uppercase leading-snug tracking-[0.14em] sm:text-[0.74rem]">
+          <p className="font-semibold">Customer copy</p>
+          <p className="mt-1 opacity-70">Keep for your records. No refunds.</p>
+          <p className="mt-3 opacity-60">
+            Still printing<span className="receipt-cursor" aria-hidden>_</span>
+          </p>
+        </div>
+      </div>
+
+      {/* Margins only, never over the print. */}
+      <Pinned src="/stickers/frog-glitter.webp" className="hidden w-28 lg:block" tilt={14} />
+      <Pinned src="/stickers/dog-heart.webp" className="hidden w-28 lg:block" tilt={-10} />
+      <Pinned src="/stickers/designer-badge.webp" className="hidden w-28 lg:block" tilt={8} />
+      <Pinned src="/stickers/succeed-crazy.webp" variant="taped" className="hidden w-40 lg:block" tilt={-7} caption="motivational" />
     </div>
   )
 }
@@ -164,11 +187,8 @@ export function Experience() {
   const stageRef = useRef<HTMLDivElement>(null)
   const worldRef = useRef<HTMLDivElement>(null)
   const [w, setW] = useState(MAX_W)
-  const [top, setTop] = useState(120)
   const [tail, setTail] = useState(0)
-  const s0 = useMotionValue(1)
-  const tx = useMotionValue(0)
-  const ty = useMotionValue(0)
+  const s0 = useMotionValue(START_SCALE)
 
   useLayoutEffect(() => {
     const stage = stageRef.current
@@ -177,48 +197,27 @@ export function Experience() {
     const measure = () => {
       const sw = stage.clientWidth
       const sh = stage.clientHeight
-      const cw = Math.min(MAX_W, sw - 40)
-      const cardTop = 84 + -G.cropTop * cw // keep the fingers clear of the nav
-      setW(cw)
-      setTop(cardTop)
-      // p = 0: the whole photo sits centred at about two thirds of the stage,
-      // so the zoom into the card is a real move, not a nudge.
-      const pw = G.photoW * cw
-      const ph = G.photoH * cw
-      const s = Math.min((sw * 0.86) / pw, (sh * 0.66) / ph, 1)
-      const ox = (sw - cw) / 2 + cw / 2
-      const oy = cardTop + (G.cardH * cw) / 2
-      const pcx = (sw - cw) / 2 + G.photoLeft * cw + pw / 2
-      const pcy = cardTop + G.photoTop * cw + ph / 2
-      s0.set(s)
-      tx.set(sw / 2 - (ox + (pcx - ox) * s))
-      ty.set(sh / 2 - (oy + (pcy - oy) * s))
-      setTail(Math.max(0, cardTop + world.offsetHeight - sh))
+      setW(Math.min(MAX_W, sw - 32))
+      // Phones already show the paper edge to edge; the zoom there is gentle.
+      s0.set(sw < 640 ? 0.88 : START_SCALE)
+      setTail(Math.max(0, TOP + world.offsetHeight - sh))
     }
     measure()
     const ro = new ResizeObserver(measure)
     ro.observe(stage)
     ro.observe(world)
     return () => ro.disconnect()
-  }, [s0, tx, ty])
+  }, [s0])
 
   const { scrollYProgress } = useScroll({ target: pinRef, offset: ['start start', 'end end'] })
   const p = useTransform(scrollYProgress, [0, 1], [0, 1], { ease: mech })
   const scale = useTransform([p, s0], ([v, s]: number[]) => s + (1 - s) * v)
-  const x = useTransform([p, tx], ([v, t]: number[]) => t * (1 - v))
-  const y = useTransform([p, ty], ([v, t]: number[]) => t * (1 - v))
-  const holderOpacity = useTransform(p, [0, 0.45, 0.9], [1, 1, 0])
-  const holderX = useTransform(p, [0, 1], [0, 0.22 * w])
-
-  const worldStyle = reduce
-    ? { scale: 1, x: 0, y: 0 }
-    : { scale, x, y }
 
   return (
     <section
       id="experience"
       className="scroll-mt-24 border-t border-hairline"
-      style={{ paddingBottom: tail + 96 }}
+      style={{ paddingBottom: tail + 112 }}
     >
       <Container className="pt-20 sm:pt-28 lg:pt-32">
         <SectionHeader
@@ -232,7 +231,7 @@ export function Experience() {
               </span>
             </>
           }
-          description="Keep scrolling, it is still printing. Tap a line for the details."
+          description="Tap a line item for the details."
         />
       </Container>
 
@@ -240,77 +239,16 @@ export function Experience() {
         <div ref={stageRef} className="receipt-stage sticky top-0 h-[100svh]">
           <motion.div
             ref={worldRef}
-            className="receipt-world absolute will-change-transform"
+            className="absolute will-change-transform"
             style={{
               width: w,
               left: `calc(50% - ${w / 2}px)`,
-              top,
-              transformOrigin: `${w / 2}px ${(G.cardH * w) / 2}px`,
-              ...worldStyle,
+              top: TOP,
+              transformOrigin: `${w / 2}px 0px`,
+              scale: reduce ? 1 : scale,
             }}
           >
-            {!reduce && (
-              <motion.img
-                src="/experience/holder.webp"
-                alt=""
-                aria-hidden
-                width={1400}
-                height={1343}
-                loading="lazy"
-                decoding="async"
-                draggable={false}
-                className="pointer-events-none absolute z-[1] max-w-none select-none"
-                style={{
-                  width: G.photoW * w,
-                  left: G.photoLeft * w,
-                  top: G.photoTop * w,
-                  opacity: holderOpacity,
-                  x: holderX,
-                }}
-              />
-            )}
-
-            <Receipt w={w} />
-
-            <img
-              src="/experience/card.webp"
-              alt="Ishan holding a pink card that reads Experience, with his festival design team roles and the CIPET Mysore internship listed on it"
-              width={805}
-              height={647}
-              loading="lazy"
-              decoding="async"
-              draggable={false}
-              className="pointer-events-none absolute z-[3] max-w-none select-none drop-shadow-[0_18px_28px_rgba(35,32,26,0.28)]"
-              style={{ width: G.cropW * w, left: G.cropLeft * w, top: G.cropTop * w }}
-            />
-
-            <Pinned
-              src="/stickers/succeed-crazy.webp"
-              variant="taped"
-              className="hidden w-40 lg:block"
-              tilt={-7}
-              caption="motivational"
-            />
-
-            <div
-              className="receipt-machine relative z-[2]"
-              style={{
-                width: MACHINE_W * w,
-                marginLeft: (-(MACHINE_W - 1) / 2) * w,
-                marginTop: -MACHINE_OVERLAP * w,
-              }}
-            >
-              <img
-                src="/experience/machine.webp"
-                alt="A typewriter the receipt is feeding out of"
-                width={1100}
-                height={430}
-                loading="lazy"
-                decoding="async"
-                draggable={false}
-                className="block h-auto w-full"
-              />
-            </div>
+            <Receipt />
           </motion.div>
         </div>
       </div>
