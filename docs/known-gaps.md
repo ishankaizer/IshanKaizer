@@ -42,9 +42,6 @@ touching the surrounding code. None of them break the site today.
   section, and the generic `components/common/marquee.tsx` used by the Terms
   banner. Both work; consolidating is optional.
 
-- **`README.md` structure section is slightly out of date.** It predates
-  `sections/terms-banner.tsx`, `components/draft/`, and `components/common/marquee.tsx`.
-
 ## Environment notes
 
 - The dev launch config lives at `../.claude/launch.json`, **outside this
