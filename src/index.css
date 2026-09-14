@@ -6,7 +6,7 @@
 /* ============================================================
    DESIGN TOKENS, "The Working Drawing".
    Warm draft paper + graphite, a non-repro drafting grid, and one
-   red-pencil marker accent. The token API is stable (--ink, --paper,
+   wine/plum marker accent. The token API is stable (--ink, --paper,
    --brand ...) so components keep working; only the material changes.
    ============================================================ */
 :root {
@@ -17,9 +17,9 @@
   --ink-soft: #574f43;
   --ink-mute: #6d6454;       /* meets WCAG AA on paper */
   --hairline: #cfc6b2;
-  --brand: #d5392a;          /* red-pencil marker */
-  --brand-strong: #b32a1d;   /* AA for small text/links on paper */
-  --brand-tint: #f0d9d2;
+  --brand: #6b3a52;          /* wine/plum marker */
+  --brand-strong: #512c3e;   /* AA for small text/links on paper */
+  --brand-tint: #d2c2b9;
   --grid: rgba(92, 112, 122, 0.16);        /* non-repro drafting blue-grey */
   --grid-strong: rgba(92, 112, 122, 0.32);
 
@@ -54,9 +54,9 @@
   --ink-soft: #b8af9d;
   --ink-mute: #8a8171;
   --hairline: #332f26;
-  --brand: #ff5a44;
-  --brand-strong: #ff8a76;
-  --brand-tint: #351a14;
+  --brand: #b9467e;
+  --brand-strong: #ce7ea5;
+  --brand-tint: #271c1c;
   --grid: rgba(150, 170, 182, 0.11);
   --grid-strong: rgba(150, 170, 182, 0.22);
 
@@ -115,10 +115,10 @@
   --color-grid: var(--grid);
   --color-grid-strong: var(--grid-strong);
 
-  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: "Archivo Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  /* serif is intentionally retired, the language forbids serif garnish */
-  --font-serif: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Libre Franklin Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Libre Franklin Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* the accent serif, used for the italic "accent word" in headings (see D37) */
+  --font-serif: "Fraunces Variable", ui-serif, Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --radius-sm: calc(var(--radius) - 1px);
@@ -549,7 +549,7 @@
   height: 16px;
   margin-left: -8px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ff8a76, var(--brand) 55%, #8f1f14);
+  background: radial-gradient(circle at 35% 35%, #e0aec6, var(--brand) 55%, #2e1923);
   box-shadow:
     0 2px 3px rgba(0, 0, 0, 0.35),
     0 6px 8px -4px rgba(0, 0, 0, 0.4);

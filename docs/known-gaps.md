@@ -31,13 +31,6 @@ touching the surrounding code. None of them break the site today.
 
 ## Inconsistencies
 
-- **`font-serif` is still used in eight places** (`footer.tsx`, `case-study.tsx`
-  x2, `apart.tsx`, `experience.tsx`, `selected-work.tsx`, `skills.tsx`,
-  `likes.tsx`), usually as `font-serif italic` for an accent phrase. Since
-  `--font-serif` is aliased to Archivo, these render as **Archivo italic**, not a
-  serif. This is intentional as a safety net, but the class name now lies about
-  what it does. Consider replacing with `italic` alone.
-
 - **Two marquee implementations** coexist: the CSS `.marquee` used by the Music
   section, and the generic `components/common/marquee.tsx` used by the Terms
   banner. Both work; consolidating is optional.

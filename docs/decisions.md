@@ -37,7 +37,7 @@ The owner considers the em dash an AI tell. Rather than rely on discipline, the
 build fails: `scripts/check-no-emdash.mjs` runs before `tsc`. It scans `src/`
 plus `index.html`, `README.md`, `scripts/gen-og.mjs`, `public/site.webmanifest`.
 
-## D4. Serif is retired, and `--font-serif` is aliased to Archivo
+## D4. Serif is retired, and `--font-serif` is aliased to Archivo (superseded by D37)
 
 The language forbids serif garnish. Rather than remove every `font-serif` usage
 at once, `--font-serif` points at Archivo, so a stray usage degrades to Archivo
@@ -48,6 +48,10 @@ Mono (machine).
 tighter, medium-weight recipe (borrowed from a reference site) was tried and
 rejected outright. The Archivo setting is the intended look. Do not re-propose a
 display face change without an explicit request.
+
+As of D37 the owner explicitly requested a display face and accent change, so
+the "do not re-propose" guardrail above no longer applies to that specific,
+requested change. It still applies to unrequested swaps.
 
 ## D5. Content lives in `src/data`
 
@@ -739,3 +743,39 @@ to read comfortably, and a portfolio has to be read.
 
 `holder.webp`, `card.webp` and `machine.webp` were removed and
 `scripts/gen-experience-assets.py` now only generates the crumple map.
+
+## D37. Accent colour and display face changed, owner request
+
+The owner felt the red-pencil orange (`#d5392a` light / `#ff5a44` dark) read as
+generic "AI-built" branding, specifically because it sits close to
+Anthropic/Claude's own orange (`#d97757`). Explored live via a set of curated
+font-pairing + colour previews (built as a throwaway comparison tool, not part
+of the site), then picked a specific combination rather than one of the
+preset pairings wholesale.
+
+- **Accent colour** (`--brand` / `--brand-strong` / `--brand-tint`, both
+  themes) is now a wine/plum: `#6b3a52` light, `#b9467e` dark. Derived
+  light/dark strong and tint values were computed to keep WCAG contrast
+  (light strong 9.4:1, dark strong 6.3:1 against paper; base brand alone
+  7.1:1 light, 3.7:1 dark, consistent with the existing pattern where
+  `--brand` alone is decorative and only `--brand-strong` is required to pass
+  AA for small text and links).
+- **Display face** (`--font-sans` / `--font-display`, the "Hand" voice) is now
+  Libre Franklin, replacing Archivo. Self-hosted via
+  `@fontsource-variable/libre-franklin`.
+- **`--font-serif`** now points at Fraunces (variable, italic), replacing the
+  Archivo alias from D4. It is used only for the short italic accent word
+  inside a heading (`font-serif italic`, e.g. "Things I *like.*"), never for a
+  full heading or body copy. Self-hosted via `@fontsource-variable/fraunces`
+  (`standard.css` and `standard-italic.css`).
+- The one hardcoded, non-token accent usages were updated to match: the
+  pushpin gradient in `.pinned__pin` (`index.css`), one blob fill in
+  `BackgroundField`, `scripts/gen-og.mjs`'s independent OG/favicon palette,
+  and `public/favicon.svg`.
+
+**This explicitly supersedes the "do not re-propose a display face change"
+guardrail in D4** and the "editorial serif... rejected" line in D1. Both were
+correct defaults for unrequested changes; this one was requested. Do not
+re-revert to Archivo/orange, and do not swap the display face or accent again
+without another explicit request, the same guardrail now just points at the
+new values.

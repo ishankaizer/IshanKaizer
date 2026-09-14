@@ -77,7 +77,7 @@ export function BackgroundField() {
           />
           <path
             d="M1200 235 C1090 165 950 210 942 335 C935 438 1050 505 1170 472 C1300 437 1312 322 1200 235 Z"
-            fill="#d5392a"
+            fill="#6b3a52"
             opacity="0.08"
           />
         </g>

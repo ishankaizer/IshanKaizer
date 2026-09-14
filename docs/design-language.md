@@ -49,8 +49,10 @@ Ordering principle when values conflict:
 
 ## Materials (colour)
 
-Warm draft paper, graphite, and exactly **one** red-pencil accent. No
-blueprint blue. No editorial white.
+Warm draft paper, graphite, and exactly **one** accent, a wine/plum marker
+(`#6b3a52` light, `#b9467e` dark), not the red-pencil orange of earlier
+versions. No blueprint blue. No editorial white. See
+[D37](./decisions.md#d37-accent-colour-and-display-face-changed-owner-request).
 
 Tokens are defined in `src/index.css` on `:root` and `.dark`. The **token API is
 stable** (`--paper`, `--ink`, `--brand`, ...) so components keep working when the
@@ -86,7 +88,12 @@ Two voices, no more:
 
 - **Machine**: IBM Plex Mono. Metadata, eyebrows, indices, part numbers,
   captions. Usually uppercase with wide tracking.
-- **Hand**: Archivo (variable). Everything else, display and body.
+- **Hand**: Libre Franklin (variable). Everything else, display and body.
+
+Plus one accent: Fraunces (variable) italic, `--font-serif`, used only for the
+short italic "accent word" inside a heading (see every `SectionHeader` title).
+Never used for a whole heading or for body copy at length. See
+[D37](./decisions.md#d37-accent-colour-and-display-face-changed-owner-request).
 
 Numerals are first class. Big type is set tight: heavy weight, negative
 tracking, line-height at or below 0.9 for display sizes.
@@ -99,10 +106,10 @@ smaller than the hero is what made an earlier grid read as boring: it presented
 the work as metadata about a card. See
 [`decisions.md`](./decisions.md#d16-selected-work-is-a-hover-reveal-index-not-a-card-grid).
 
-**Serif is retired.** The language forbids serif garnish. `--font-serif` is
-deliberately aliased to Archivo so that any stray `font-serif` renders as
-Archivo rather than a system serif. See [`known-gaps.md`](./known-gaps.md), some
-`font-serif italic` usages still exist and now read as Archivo italic.
+**Serif is no longer retired, by explicit request (D37).** `--font-serif` now
+points at Fraunces, a genuine serif, and is used deliberately for the italic
+accent word in section headings. It is still not a voice for running text:
+the rule against serif garnish elsewhere in the page still holds.
 
 Fonts are self hosted through Fontsource and imported in `src/main.tsx`. Do not
 add a third party font request.
