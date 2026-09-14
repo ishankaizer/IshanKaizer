@@ -1,8 +1,8 @@
 # Resources
 
 What the site uses that did not start life in `src/`, where it came from, and
-where it ends up. Originals stay in the drop folder (`images/`, untracked);
-this file is the record.
+where it ends up. Originals stay in the drop folder (`resources/inbox/`,
+tracked so they ride along with every push); this file is the record.
 
 ## Experience receipt (section 03)
 
@@ -21,7 +21,8 @@ Ishan's direction (D36); the receipt now stands on its own.
 
 ## Stickers and photos (rest of the site)
 
-From `images/more stickers for the rest of the site/`, all saved by Ishan;
+From `resources/inbox/more stickers for the rest of the site/`, all saved by
+Ishan;
 original authors unknown. Die-cut ones were cut with `scripts/cutout.py`;
 photographs were kept whole and framed by `components/common/pinned.tsx`.
 
