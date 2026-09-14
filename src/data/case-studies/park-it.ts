@@ -3,7 +3,7 @@ import type { CaseStudy } from '@/types'
 export const parkIt: CaseStudy = {
   hook: 'A smart-parking app for Indian cities. I led the research and end-to-end product design that turned aimless circling into a two-tap reservation.',
   overview: {
-    team: 'Solo: research, UX, UI, prototype',
+    team: 'Research, UX, UI, prototype',
     platform: 'iOS & Android (mobile app)',
     tools: ['Figma', 'FigJam', 'Maze', 'Illustrator'],
   },

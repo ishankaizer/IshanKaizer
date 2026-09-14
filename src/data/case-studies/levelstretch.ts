@@ -3,7 +3,7 @@ import type { CaseStudy } from '@/types'
 export const levelstretch: CaseStudy = {
   hook: 'A self-leveling ambulance stretcher that keeps a patient stable on rough roads and streams live vitals to the hospital before arrival. Industrial design meets connected health.',
   overview: {
-    team: 'Solo: industrial design, systems, companion app',
+    team: 'Industrial design, systems, companion app',
     platform: 'Medical device + hospital app',
     tools: ['Fusion 360', 'Blender', 'Figma', 'Arduino (concept)'],
   },

@@ -3,7 +3,7 @@ import type { CaseStudy } from '@/types'
 export const wellbell: CaseStudy = {
   hook: 'A connected pill dispenser for seniors. I designed both the physical product and its interaction model so the right dose happens at the right time, with a caregiver watching from afar.',
   overview: {
-    team: 'Solo: industrial design, UX, prototyping',
+    team: 'Industrial design, UX, prototyping',
     platform: 'Connected device + caregiver app',
     tools: ['Fusion 360', 'Figma', 'Blender', 'Keyshot'],
   },
