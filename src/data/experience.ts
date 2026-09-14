@@ -11,7 +11,7 @@ export const receipt = {
 export const experience: ExperienceRole[] = [
   {
     when: 'Jul 2026 – Present',
-    role: 'Design Lead',
+    role: 'Industrial Designer',
     org: 'Sangeeth Samuel Design',
     points: [],
   },
