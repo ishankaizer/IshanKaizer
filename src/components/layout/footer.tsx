@@ -121,7 +121,7 @@ export function Footer() {
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-mute">Reach me</p>
             <a
               href={`mailto:${site.email}`}
-              className="mt-2 block break-words text-balance font-display text-2xl font-black uppercase tracking-tight text-ink transition-colors hover:text-brand-strong sm:text-3xl"
+              className="mt-2 block whitespace-nowrap font-display text-[clamp(1rem,5.5vw,1.875rem)] font-black uppercase tracking-tight text-ink transition-colors hover:text-brand-strong"
             >
               {site.email}
             </a>
