@@ -52,6 +52,7 @@ const base: Omit<Project, 'study'>[] = [
     featured: true,
     external: 'https://binkli.vercel.app',
     cover: '/projects/binkli/cover.jpg',
+    coverPosition: 'center',
   },
   {
     slug: 'miscellaneous',

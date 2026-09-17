@@ -71,6 +71,9 @@ export interface Project {
   external?: string
   /** /projects/<slug>/cover.jpg by convention; falls back to a generated cover. */
   cover?: string
+  /** Vertical crop anchor for `cover` when it doesn't match the card's aspect
+   * ratio. Defaults to 'top'; set 'center' when the subject sits mid-frame. */
+  coverPosition?: 'top' | 'center' | 'bottom'
   /** Optional long-form case study. */
   study?: CaseStudy
   /** Rendered deck slides for the "full presentation" gallery. */

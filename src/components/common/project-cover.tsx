@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 
+const POSITION_CLASS = {
+  top: 'object-top',
+  center: 'object-center',
+  bottom: 'object-bottom',
+} as const
+
 interface ProjectCoverProps {
   slug: string
   title: string
@@ -8,6 +14,8 @@ interface ProjectCoverProps {
   className?: string
   /** Eager-load above-the-fold covers. */
   priority?: boolean
+  /** Crop anchor when the image's ratio doesn't match the card. Defaults to 'top'. */
+  position?: 'top' | 'center' | 'bottom'
 }
 
 /**
@@ -20,6 +28,7 @@ export function ProjectCover({
   src,
   className,
   priority = false,
+  position = 'top',
 }: ProjectCoverProps) {
   const [failed, setFailed] = useState(false)
   const showImage = Boolean(src) && !failed
@@ -38,7 +47,10 @@ export function ProjectCover({
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
           onError={() => setFailed(true)}
-          className="size-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          className={cn(
+            'size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]',
+            POSITION_CLASS[position],
+          )}
         />
       ) : (
         <div className="absolute inset-0 grid place-items-center p-6 transition-transform duration-700 ease-out group-hover:scale-[1.03]">

@@ -101,6 +101,7 @@ export function WorkIndex({ projects }: { projects: Project[] }) {
                 slug={project.slug}
                 title={project.title}
                 src={project.cover}
+                position={project.coverPosition}
                 className="size-full"
               />
             </div>
@@ -186,6 +187,7 @@ function WorkRow({
           slug={project.slug}
           title={project.title}
           src={project.cover}
+          position={project.coverPosition}
           className="mt-6 aspect-[16/9] w-full border border-hairline"
         />
       )}

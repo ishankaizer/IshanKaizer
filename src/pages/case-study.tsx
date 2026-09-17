@@ -100,6 +100,7 @@ function CaseStudyContent({ project }: { project: Project & { study: NonNullable
             slug={project.slug}
             title={project.title}
             src={project.cover}
+            position={project.coverPosition}
             priority
             className="cs-cover aspect-[16/9] w-full rounded-xl border border-hairline"
           />
