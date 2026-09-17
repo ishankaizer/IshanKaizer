@@ -10,10 +10,15 @@ export const receipt = {
 
 export const experience: ExperienceRole[] = [
   {
-    when: 'Jul 2026 – Present',
+    when: 'Jun 2026 – Present',
     role: 'Industrial Designer',
     org: 'Sangeeth Samuel Design',
-    points: [],
+    location: 'Bengaluru',
+    points: [
+      'Creative director for premium custom trophies, from concept to print-ready files for laser cutting and 3D printing.',
+      'Designed trophies for the Red Bull Vallam Vali race and a memento for Magnus Carlsen at a Tech Mahindra event.',
+      'Delivered branding for clients including rally racer Dhruva Chandrashekhar and RX Owners Club.',
+    ],
   },
   {
     when: 'Feb – Jun 2026',
