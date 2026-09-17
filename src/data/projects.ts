@@ -17,15 +17,6 @@ const base: Omit<Project, 'study'>[] = [
     cover: '/projects/park-it/cover.jpg',
   },
   {
-    slug: 'wellbell',
-    title: 'WellBell',
-    tagline: 'A connected pill dispenser that helps seniors take the right dose at the right time.',
-    disciplines: ['Industrial Design', 'UX/UI'],
-    role: 'Industrial & Interaction Design',
-    featured: true,
-    cover: '/projects/wellbell/cover.jpg',
-  },
-  {
     slug: 'soul-ai',
     title: 'Soul AI',
     tagline: 'Case study in progress, check back soon.',
@@ -70,6 +61,25 @@ const base: Omit<Project, 'study'>[] = [
     role: 'Graphic & Packaging Design',
     featured: true,
     cover: '/projects/miscellaneous/cover.jpg',
+  },
+]
+
+/**
+ * Benched, not deleted. Pulled from `base` on 2026-09-17 at the owner's request
+ * so it doesn't show while he shares the site with a company; the case study
+ * content, slides and slide-dims entry are untouched. To bring it back, move
+ * this object into `base` (its old spot was right after Park IT) and add
+ * 'wellbell': wellbell to the case-study import in ./case-studies/index.ts.
+ */
+export const ARCHIVED: Omit<Project, 'study'>[] = [
+  {
+    slug: 'wellbell',
+    title: 'WellBell',
+    tagline: 'A connected pill dispenser that helps seniors take the right dose at the right time.',
+    disciplines: ['Industrial Design', 'UX/UI'],
+    role: 'Industrial & Interaction Design',
+    featured: true,
+    cover: '/projects/wellbell/cover.jpg',
   },
 ]
 
