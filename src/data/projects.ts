@@ -55,6 +55,16 @@ const base: Omit<Project, 'study'>[] = [
     coverPosition: 'center',
   },
   {
+    slug: 'divien',
+    title: 'Divien',
+    tagline: 'A 3D spatial brainstorming tool that grows a coral sculpture of everything a brief could mean, then fuses branches into ideas you would not reach alone.',
+    disciplines: ['Product', 'Visualization', 'UX/UI'],
+    role: 'Product Design & Front-end',
+    featured: true,
+    external: 'https://divien.vercel.app/',
+    cover: '/projects/divien/cover.jpg',
+  },
+  {
     slug: 'miscellaneous',
     title: 'Miscellaneous',
     tagline: 'Packaging, posters, stickers and other graphic work, including the Palkia blind-box series.',
