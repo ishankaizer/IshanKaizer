@@ -63,6 +63,7 @@ const base: Omit<Project, 'study'>[] = [
     featured: true,
     external: 'https://divien.vercel.app/',
     cover: '/projects/divien/cover.jpg',
+    coverPosition: 'center',
   },
   {
     slug: 'miscellaneous',
