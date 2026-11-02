@@ -10,7 +10,16 @@ export const receipt = {
 
 export const experience: ExperienceRole[] = [
   {
-    when: 'Jun 2026 – Present',
+    when: 'Aug 2026 – Present',
+    role: 'Product Design Intern',
+    org: 'Rapido',
+    location: 'Bengaluru',
+    points: [
+      'Just joined the product design team. Details to come.',
+    ],
+  },
+  {
+    when: 'Jun – Aug 2026',
     role: 'Industrial Designer',
     org: 'Sangeeth Samuel Design',
     location: 'Bengaluru',
